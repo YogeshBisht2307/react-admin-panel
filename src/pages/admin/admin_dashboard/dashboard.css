@@ -1,0 +1,126 @@
+
+.wrapper .section{
+	width: calc(100% - 225px);
+	margin-left: 225px;
+	transition: all 0.5s ease;
+}
+
+.wrapper .section .top_navbar{
+	background: linear-gradient(to right,#4b6cb7,#182848);
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 15px;
+}
+.wrapper .section .top_navbar .logout button{
+	background-color: red;
+    outline: none;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding:5px 15px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.wrapper .section .top_navbar .hamburger p i{
+	font-size: 28px;
+	color: #f4fbff;
+}
+.wrapper .section .top_navbar .hamburger p span{
+	color:#f1f1f1;
+	margin-left:10px;
+}
+.wrapper .section .top_navbar .hamburger p:hover{
+	color: #a2ecff;
+}
+.wrapper .section .container{
+    margin: 30px;
+    background: #fff;
+    padding: 50px;
+    line-height: 28px;
+  }
+.side-bar-navigation.active .wrapper .sidebar{
+	left: -225px;
+}
+
+.side-bar-navigation.active .wrapper .section{
+	margin-left: 0;
+	width: 100%;
+}
+.dashboard-header{
+	margin-left:1rem;
+	margin-bottom: 1rem;
+}
+.dashboard-container{
+	display: flex;
+	justify-content: space-around;
+	width:100%;
+	margin:auto;
+	align-items: center;
+	height:100%;
+	flex-wrap: wrap;
+}
+.dashboard-columns{
+	width:30%;
+	height:25vh;
+	margin:1rem 0rem;
+	background-color: black;
+}
+.dashboard-columns:nth-child(1){
+	background-color: #FF6263;
+}
+.dashboard-columns:nth-child(2){
+	background-color: #5DA3FA;
+}
+.dashboard-columns:nth-child(3){
+	background-color: #00D84A;
+}
+.dashboard-columns:nth-child(4){
+	background-color: #DDD101;
+}
+.dashboard-columns:nth-child(5){
+	background-color: #E03B8B;
+}
+.dashboard-columns:nth-child(6){
+	background-color: #03C6C7;
+}
+.column-header{
+	height:20%;
+	background-color: white;
+	opacity: 0.6;
+	padding-left:0.5rem;
+}
+.column-content{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height:80%
+}
+.column-content i{
+	font-size:50px;
+	font-weight: 600;
+}
+ .column-content .column-data{
+	font-size:30px;
+	font-weight: 600;
+}
+
+@media(max-width:768px){
+    .wrapper .section .container{
+        margin:5px;
+        padding:10px;
+    }
+	.wrapper .sidebar{
+		width: 200px;
+	}
+	.wrapper .section{
+		width: calc(100% - 200px);
+		margin-left: 200px;
+	}
+}

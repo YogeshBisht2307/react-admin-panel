@@ -1,0 +1,32 @@
+#################################
+git commands to remember
+
+# git new branch creation command
+git branch <branch_name>
+
+# git changing branch
+git checkout <branch_name>
+
+# staging the files
+git add <filename>
+
+# unstaging the file
+git restore --staged <filename>
+
+# making snapshot of changes with timeline
+git commit -m "<message>"
+
+# checkout to a particular commit
+git checkout <commit key>
+
+# switched to branch from the commit 
+git switch -
+or 
+git switch <branch_name>
+
+# git upstream command to add new branch to remote origin
+git push --set-upstream origin user_panel
+
+
+
+

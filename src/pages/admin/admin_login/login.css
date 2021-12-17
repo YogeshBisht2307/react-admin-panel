@@ -1,0 +1,91 @@
+.login-section{
+    height:100vh;
+    background: linear-gradient(to right,#4b6cb7,#182848);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-form {
+    z-index: 15;
+    background: #FFFFFF;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.login-form-panel {
+    padding: 60px calc(5% + 40px) 60px 40px;
+    box-sizing: border-box;
+}
+.form-header {
+    margin: 0 0 40px;
+}
+.form-header h1 {
+    padding: 4px 0;
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+.form-group:last-child {
+    margin: 0;
+}
+.form-group label {
+    display: block;
+    margin: 0 0 10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+.form-group input {
+    outline: none;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+.form-group input:focus {
+    color: rgba(0, 0, 0, 0.8);
+}
+.form-group button {
+    outline: none;
+    background: #000;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.form-group .form-recovery {
+    color: #4285F4;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+}

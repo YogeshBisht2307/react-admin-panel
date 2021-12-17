@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { Routes, Route } from "react-router-dom";
+import RequireAuth from './components/utility/RequireAuth';
+import 'react-toastify/dist/ReactToastify.css'
+import { DashboardLayout } from "./components/utility/Layout";
 
-function App() {
+import AdminLogin from "./pages/admin/admin_login/Login";
+import AdminDashboard from "./pages/admin/admin_dashboard/Dashboard";
+import AdminServices from "./pages/admin/admin_services/Services";
+import NoRoutePage from "./components/utility/404";
+
+const Home = () => <h1>Home (Public)</h1>;
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <RequireAuth>
+              <DashboardLayout>
+                <AdminDashboard />
+              </DashboardLayout>
+            </RequireAuth>
+          }
+          />
+        <Route
+          path="/admin/services"
+          element={
+            <RequireAuth>
+              <DashboardLayout>
+                <AdminServices />
+              </DashboardLayout>
+            </RequireAuth>
+          }
+          />
+        <Route path="admin/login" element={<AdminLogin />} />
+        {/* Not found router */}
+        <Route
+          path="*"
+          element={
+            <NoRoutePage/>
+          }
+        />
+      </Routes>
   );
 }
-
-export default App;
