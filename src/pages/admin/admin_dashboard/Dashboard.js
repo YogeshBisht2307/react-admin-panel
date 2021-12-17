@@ -1,5 +1,7 @@
 import React from 'react'
+
 import './dashboard.css';
+
 const DashboardData = [
     {
         id: 1,

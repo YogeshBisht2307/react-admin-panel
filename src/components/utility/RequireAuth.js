@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 
-function RequireAuth({ children }) {
+const RequireAuth = ({ children }) => {
     let authToken = sessionStorage.getItem('Auth Token')
     const location = useLocation();
   
@@ -10,5 +10,6 @@ function RequireAuth({ children }) {
       replace 
       state={{ path: location.pathname }}
       />;
-  }
+}
+
 export default RequireAuth;

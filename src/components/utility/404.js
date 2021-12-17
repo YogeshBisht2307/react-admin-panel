@@ -23,4 +23,4 @@ const NoRoutePage = () => {
     )
 }
 
-export default NoRoutePage
+export default NoRoutePage;

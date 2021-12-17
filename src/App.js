@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import RequireAuth from './components/utility/RequireAuth';
-import 'react-toastify/dist/ReactToastify.css'
+
 import { DashboardLayout } from "./components/utility/Layout";
+import RequireAuth from './components/utility/RequireAuth';
 
 import AdminLogin from "./pages/admin/admin_login/Login";
 import AdminDashboard from "./pages/admin/admin_dashboard/Dashboard";
@@ -12,10 +12,15 @@ import NoRoutePage from "./components/utility/404";
 const Home = () => <h1>Home (Public)</h1>;
 
 
-export default function App() {
+const App = () => {
   return (
       <Routes>
         <Route path="/" element={<Home />} />
+
+        {/* blog application */}
+        {/* <Route path="/blog" element={<Blog/>}/> */}
+
+        {/* admin panel */}
         <Route
           path="/admin/dashboard"
           element={
@@ -37,6 +42,7 @@ export default function App() {
           }
           />
         <Route path="admin/login" element={<AdminLogin />} />
+
         {/* Not found router */}
         <Route
           path="*"
@@ -47,3 +53,4 @@ export default function App() {
       </Routes>
   );
 }
+export default App;

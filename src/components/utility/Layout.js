@@ -2,7 +2,14 @@ import React, {useState} from "react";
 
 import SideNavbar from '../Navbar/SideBar';
 import HeaderBar from '../Navbar/HeaderBar';
-import BodyWrapper from "./BodyWrapper";
+
+const BodyWrapper = ({children}) => {
+  return (
+        <main className="main-screen">
+          {children}
+        </main>
+  );
+};
 
 export const DashboardLayout = ({ children }) => {
   const [navCollapse, setNavCollapse] = useState(false);

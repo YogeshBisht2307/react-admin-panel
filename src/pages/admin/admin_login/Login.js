@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom'
-import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth';
 
+import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth';
 import {app, authentication} from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
 import './login.css';
 
 const AdminLogin = () => {
@@ -33,7 +34,7 @@ const AdminLogin = () => {
       })
   }
   
-  const resetPassoword = (event)=> {
+  const resetPassoword = (event) => {
       event.preventDefault();
       sendPasswordResetEmail(authentication,email)
       .then(() => {
