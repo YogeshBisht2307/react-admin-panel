@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
+import AdminImage from '../images/admin.JPG';
 
 import './navbar.css';
 
@@ -7,7 +8,7 @@ const SideNavbar = () => {
     return (
         <div className="sidebar">
             <div className="profile">
-                <img src="" style={{border:"2px solid white"}} alt="profile_picture"/>
+                <img src={AdminImage} style={{border:"2px solid white"}} alt="profile_picture"/>
                 <h3>Yogesh Bisht</h3>
                 <p>Full Stack Developer</p>
             </div>

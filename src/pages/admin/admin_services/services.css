@@ -27,14 +27,20 @@
 }
 
 .content-table .edit button, .content-table .delete button{
-  padding:5px 10px;
-  border:none;
-  border-radius:5px;
-  outline:none;
-  cursor: pointer;
+  padding:5px 15px;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 .content-table .edit button{
-  background-color: #1B98F5;
+  background-color: #000;
+  color:#f1f1f1
 }
 .content-table .edit-content{
   display: none;
@@ -63,8 +69,8 @@
     font-size:25px;
   }
 .addElementHeader button{
-    background: #00D84A;
-    color:#000;
+    background: linear-gradient(to right,#4b6cb7,#182848);
+    color:#f1f1f1;
     cursor: pointer;
     padding: 8px;
     border-radius: 5px;
@@ -173,23 +179,27 @@
     background: #fafafa;
   }
   .form_wrapper input[type=submit] {
-    background: #f5ba1a;
-    height: 35px;
-    line-height: 35px;
+    background: linear-gradient(to right,#4b6cb7,#182848);
     width: 30%;
     border: none;
     outline: none;
-    cursor: pointer;
-    color: #fff;
-    font-size: 1.1em;
     margin-bottom: 10px;
     transition: all 0.3s ease-in-out;
+    border-radius: 4px;
+    padding: 10px 15px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
   }
   .form_wrapper input[type=submit]:hover {
-    background: #e1a70a;
+    background: linear-gradient(to right,#5974b3,#2b4373)
   }
   .form_wrapper input[type=submit]:focus {
-    background: #e1a70a;
+    background: linear-gradient(to right,#5974b3,#2b4373)
   }
 
   @media(max-width:768px){

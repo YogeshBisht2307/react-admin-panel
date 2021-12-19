@@ -13,8 +13,8 @@ const ScreenLoader = () => {
                 </g>
                 <defs>
                     <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style={{stopColor : '#FF56A1', stopOpacity:1}}/>
-                    <stop offset="100%" style={{stopColor: '#FF9350', stopOpacity:1}} />
+                    <stop offset="0%" style={{stopColor : '#5689ff', stopOpacity:1}}/>
+                    <stop offset="100%" style={{stopColor: '#090e17', stopOpacity:1}} />
                     </linearGradient>
                 </defs>
             </svg>  
