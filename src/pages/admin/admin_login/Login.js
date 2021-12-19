@@ -7,54 +7,76 @@ import {app, authentication} from '../../../firebase.config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
+import ScreenLoader from '../../../components/utility/Loader';
+
 import './login.css';
 
 const AdminLogin = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  
-  const onLogin = (event) => {
-      event.preventDefault();
-      signInWithEmailAndPassword(authentication, email, password)
-      .then((response) => {
-          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
-          navigate("/admin/dashboard");
-        //   navigate(state?.path || "/dashboard");
-          toast.success("Welcome back! 😎");   
-      })
-      .catch((error) => {
-          console.log(error.code)
-          if (error.code === 'auth/wrong-password') {
-              toast.error('Please check the Password! 😏');
-          }
-          if (error.code === 'auth/user-not-found') {
-              toast.error('Please check the Email! 😵‍💫');
-          }
-      })
-  }
-  
-  const resetPassoword = (event) => {
-      event.preventDefault();
-      sendPasswordResetEmail(authentication,email)
-      .then(() => {
-          toast.success("Password Reset Email has send! 😊");
-      })
-      .catch((error) => {
-          console.log(error.code);
-          if(error.code === 'auth/missing-email'){
-              toast.error('Email is required! 😒');
-          }
-          if(error.code === 'auth/user-not-found'){
-              toast.error('Please check the Email! 😵‍💫');
-          }
-      })
-  }
+    const navigate = useNavigate();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [loader, setLoader] = useState(false);
 
-  return (
-      <>
-       <ToastContainer />
-        <section className="login-section">
+    const onLogin = (event) => {
+
+        setLoader(true);
+        event.preventDefault();
+
+        signInWithEmailAndPassword(authentication, email, password)
+        .then((response) => {
+            sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+            setLoader(false);
+            navigate("/admin/dashboard");
+            //   navigate(state?.path || "/dashboard");
+            toast.success("Welcome back! 😎");   
+        })
+        .catch((error) => {
+            console.log(error.code)
+            setLoader(false);
+            if (error.code === 'auth/wrong-password') {
+                toast.error('Please check the Password! 😏');
+            }
+            if (error.code === 'auth/user-not-found') {
+                toast.error('Please check the Email! 😵‍💫');
+            }
+            if(error.code === 'auth/timeout'){
+                toast.error('Request timeout ! try again later');
+            }
+        })
+    }
+
+    const resetPassoword = (event) => {
+    event.preventDefault();
+    setLoader(true);
+    sendPasswordResetEmail(authentication,email)
+    .then(() => {
+        setLoader(false);
+        toast.success('Password Reset Email has send! 😊');
+    })
+    .catch((error) => {
+        setLoader(false);
+        console.log(error.code);
+        if(error.code === 'auth/missing-email'){
+            toast.error('Email is required! 😒');
+        }
+        if(error.code === 'auth/user-not-found'){
+            toast.error('Please check the Email! 😵‍💫');
+        }
+        if(error.code === 'auth/timeout'){
+            toast.error('Request timeout ! try again later');
+        }
+    })
+    }
+
+    if(loader){
+        return (
+            <ScreenLoader/>
+        )
+    }
+    return (
+        <>
+            <ToastContainer />
+            <section className="login-section">
                 <div className="login-form">
                     <div className="login-form-panel">
                         <div className="form-header">
