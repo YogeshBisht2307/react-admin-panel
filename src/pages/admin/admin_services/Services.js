@@ -1,6 +1,6 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 
-import { ref as reference, push } from "firebase/database";
+import { ref as reference, push, onValue } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage,db } from '../../../firebase.config';
 
@@ -8,20 +8,52 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import DisplayTable from './DisplayTable';
+import ScreenLoader from '../../../components/utility/Loader';
 import './services.css';
 
 const AdminServices = () => {
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
+    const [loader, setLoader] = useState(false);
+
     const [editWindow, setEditWindow] = useState(false);
     const [serviceImageFont, setServiceImageFont] = useState("");
     const [serviceTitle, setServiceTitle] = useState("");
     const [serviceDetail, setServiceDetail] = useState("");
     const [image, setImage] = useState("");
+
+    const [serviceData, setServiceData] = useState([]);
+
     const refhook = React.useRef();
     
+    const fetchData = async() => {
+        setLoader(true);
+        
+        const serviceRef = reference(db, 'portfolio/services');
+        onValue(serviceRef, (snapshot) => {
+            snapshot.forEach(function (childSnapshot) {
+                let data = childSnapshot.val();
+                console.log(data);
+                setServiceData(arr => 
+                    [...arr, {
+                        serviceKey: childSnapshot.key,
+                        serviceId : data.serviceId,
+                        serviceTitle: data.serviceTitle,
+                        serviceDetail: data.serviceDetail,
+                        serviceImageUrl: data.serviceImageUrl,
+                        serviceImageFont: data.serviceImageFont,
+                    }]
+                )
+            });
+            setLoader(false);
+        });
+    }
 
     const submitData = async(e) => {
         e.preventDefault();
+
+        setLoader(true);
+        setServiceData([]);
+
         const storageRef = ref(storage, 'portfolio/images/' + image.name);
         uploadBytes(storageRef, image)
         .catch(error =>{
@@ -33,11 +65,13 @@ const AdminServices = () => {
             getDownloadURL(ref(storage, 'portfolio/images/' + image.name))
             .catch(error => { 
                 console.log(error);
+                setLoader(false);
                 toast.error("Error occured during url handling!..");
             })
             .then((url) => {
                 // adding service data to firebase server
                 push(reference(db, 'portfolio/services/',), {
+                    serviceId : `service-${Date.now()}`,
                     serviceTitle: serviceTitle,
                     serviceDetail: serviceDetail,
                     serviceImageUrl: url,
@@ -45,6 +79,7 @@ const AdminServices = () => {
                 });
             }).catch(error => {
                 console.log(error);
+                setLoader(false);
                 toast.error("Error occured during service data uploading!...");
             })
             .then(() =>{
@@ -53,9 +88,20 @@ const AdminServices = () => {
                 setServiceTitle("");
                 setImage("");
                 refhook.current.value = "";
+                setLoader(false);
                 toast.success("Hurray !!! Service added successfully !");
             })
         })
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    if (loader){
+        return (
+            <ScreenLoader/>
+        )
     }
     return (
         <>
@@ -100,7 +146,7 @@ const AdminServices = () => {
                     </div>
                 </div>
             </div>
-            <DisplayTable editWindow={editWindow} setEditWindow={setEditWindow}/>  
+            <DisplayTable serviceData={serviceData} editWindow={editWindow} setEditWindow={setEditWindow}/>  
         </div>
     </div> 
     </>

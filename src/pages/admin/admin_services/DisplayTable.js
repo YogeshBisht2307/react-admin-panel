@@ -1,26 +1,45 @@
 import React from 'react'
 
-const DisplayTable = ({editWindow, setEditWindow}) => {
+const DisplayTable = ({serviceData, editWindow, setEditWindow}) => {
     return (
         <div className="content-table" style={{overflowX : 'auto'}}>
         <table>
             <thead>
             <tr>
-                <th>Provider Name</th>
-                <th>E-mail</th>
-                <th>Image</th>
+                <th>Title</th>
+                <th>Detail</th>
+                <th>Image Font</th>
+                <th>Image Url</th>
                 <th colSpan="2">Action</th>
             </tr>
             </thead>
             <tbody>
                 {/* first row */}
+                {serviceData.map((service, index) => {
+                    return (
+                        <tr key={index}>
+                            <td data-title='service_title'>{service.serviceTitle}</td>
+                            <td data-title='service_detail'>{service.serviceDetail}</td>
+                            <td data-title='service_image_font'>{service.serviceImageFont}</td>
+                            <td data-title='service_image_url'>{service.serviceImageUrl}</td>
+                            <td className='edit'>
+                                <button className='button' id="{serviceId}" onClick={()=>setEditWindow(!editWindow)}>Edit</button>
+                            </td>
+                            <td className='delete'>
+                                <button id="{serviceId}" className='button'>Delete</button>
+                            </td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+           {/* table footer */}
+            <tfoot>
                 <tr>
-                    <td data-title='Provider Name'>Christoph Koller</td>
-                    <td data-title='E-mail'>e-mail@test-email.com</td>
-                    <td data-title='Image'>image/src/exe_jpg.png</td>
-                    <td className='edit'>
-                    <button className='button' id="edit" onClick={()=>setEditWindow(!editWindow)}>Edit</button>
-                    <div className="edit-content" style={{display:editWindow ? "flex" : "none"}}>
+                <th colSpan='5'>Year: 2021</th>
+                </tr>
+            </tfoot>
+        </table>
+        {/* <div className="edit-content" style={{display:editWindow ? "flex" : "none"}}>
                         <div onClick={()=>setEditWindow(!editWindow)} className="cross">
                             X
                         </div>
@@ -54,20 +73,7 @@ const DisplayTable = ({editWindow, setEditWindow}) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    </td>
-                    <td className='delete'>
-                        <button className='button'>Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-           {/* table footer */}
-            <tfoot>
-                <tr>
-                <th colSpan='3'>Year: 2021</th>
-                </tr>
-            </tfoot>
-        </table>
+                    </div> */}
     </div>
     )
 }
