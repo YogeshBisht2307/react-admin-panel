@@ -146,7 +146,7 @@ const AdminServices = () => {
                     </div>
                 </div>
             </div>
-            <DisplayTable serviceData={serviceData} editWindow={editWindow} setEditWindow={setEditWindow}/>  
+            <DisplayTable serviceData={serviceData} setServiceData={setServiceData} editWindow={editWindow} setEditWindow={setEditWindow}/>  
         </div>
     </div> 
     </>

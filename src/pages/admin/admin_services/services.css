@@ -28,15 +28,15 @@
 
 .content-table .edit button, .content-table .delete button{
   padding:5px 15px;
-    width: 100%;
-    border: 0;
-    border-radius: 4px;
-    color: #FFFFFF;
-    font-family: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    text-transform: uppercase;
-    cursor: pointer;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 .content-table .edit button{
   background-color: #000;
@@ -47,8 +47,10 @@
   position: absolute;
   background-color: #f1f1f1;
   top:20%;
-  left:40%;
+  left:20%;
   z-index: 10;
+  height: 50vh;
+  width:60vw;
 }
 .content-table .edit-content .cross{
   padding:10px;
@@ -215,6 +217,8 @@
       align-items: center;
     }
     .content-table .edit-content{
-      left:10%;
+      left:5%;
+      height: 65vh;
+      width: 85vw;
     }
   }
