@@ -59,7 +59,7 @@ const DisplayTable = ({serviceData, setServiceData, editWindow, setEditWindow}) 
             {/* edit editWindow  */}
             <div className="edit-content" style={{display:editWindow ? "flex" : "none"}}>
                 <div onClick={()=>setEditWindow(!editWindow)} className="cross">
-                    X
+                    <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
                 <div className="form_wrapper">
                     <div className="form_container">

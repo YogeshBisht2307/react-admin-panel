@@ -1,31 +1,29 @@
-  
 .content-table table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid #ddd;
-    margin-top:20px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin-top:20px;
 }
 .content-table td {
-    border: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
 .content-table td:before {
-    display: none;
+  display: none;
 }
 .content-table td, th {
-    padding: 10px;
+  padding: 10px;
 }
 .content-table thead th{
-    background-color: #000;
-    color: #f1f1ff;
+  background-color: #000;
+  color: #f1f1ff;
 }
 .content-table tbody tr:nth-child(even){
   background-color: #f2f2f2;
 }
 .content-table .select {
-    padding: 10px;
+  padding: 10px;
 }
-
 .content-table .edit button, .content-table .delete button{
   padding:5px 15px;
   width: 100%;
@@ -51,6 +49,9 @@
   z-index: 10;
   height: 50vh;
   width:60vw;
+  box-shadow: 10px 4px 86px 2px rgba(83,83,167,0.6);
+  -webkit-box-shadow: 10px 4px 86px 2px rgba(83,83,167,0.6);
+  -moz-box-shadow: 10px 4px 86px 2px rgba(83,83,167,0.6);
 }
 .content-table .edit-content .cross{
   padding:10px;
@@ -62,163 +63,162 @@
   background-color: #D82E2F;
 }
 .addElementHeader {
-    display: flex; 
-    justify-content:space-between;
-    padding:10px;
+  display: flex; 
+  justify-content:space-between;
+  padding:10px;
   }
 .addElementHeader p{
-    font-weight:600;
-    font-size:25px;
+  font-weight:600;
+  font-size:25px;
   }
 .addElementHeader button{
-    background: linear-gradient(to right,#4b6cb7,#182848);
-    color:#f1f1f1;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 14px;
-    margin:10px;
+  background: linear-gradient(to right,#4b6cb7,#182848);
+  color:#f1f1f1;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  margin:10px;
 }
 .content.active, .collapsible:hover {
-    background-color: #f1f1f1;
-    
-  }
+  background-color: #f1f1f1;  
+}
   
-  .content {
-    padding: 0 12px;
-    display: none;
+.content {
+  padding: 0 12px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.form_wrapper {
+  min-height:50vh;
+  display:flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+  z-index: 10;
+}
+.form_wrapper h2 {
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 0;
+}
+.form_wrapper .title_container {
+  text-align: center;
+  padding-bottom: 15px;
+}
+.form_wrapper h3 {
+  font-size: 1.1em;
+  font-weight: normal;
+  line-height: 1.5em;
+  margin: 0;
+}
+.form_wrapper .form-row{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.form_wrapper label {
+  font-size: 12px;
+}
+.form_wrapper .row {
+  margin: 10px -15px;
+}
+.form_wrapper .row > div {
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.form_wrapper .input_field {
+  position: relative;
+  margin-bottom: 20px;
+  width:45%;
+}
+.form_wrapper .input_field > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #333;
+  height: 100%;
+  border-right: 1px solid #cccccc;
+  text-align: center;
+  width: 30px;
+}
+.form_wrapper .input_field > span > i {
+  padding-top: 10px;
+}
+.form_wrapper .textarea_field > span{
+  border:none;
+}
+.form_wrapper input[type=text], .form_wrapper input[type=email], .form_wrapper input[type=password]{
+  width: 100%;
+  padding: 8px 10px 9px 35px;
+  height: 35px;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+.form_wrapper textarea {
+  width: 100%;
+  padding: 8px 10px 9px 35px;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+.form_wrapper input[type=text]:hover, .form_wrapper input[type=email]:hover, .form_wrapper input[type=password]:hover, .form_wrapper textarea {
+  background: #fafafa;
+}
+
+.form_wrapper input[type=text]:focus, .form_wrapper input[type=email]:focus, .form_wrapper input[type=password]:focus .form_wrapper textarea {
+  box-shadow: 0 0 2px 1px rgba(255, 169, 0, 0.5);
+  border: 1px solid #f5ba1a;
+  background: #fafafa;
+}
+.form_wrapper input[type=submit] {
+  background: linear-gradient(to right,#4b6cb7,#182848);
+  width: 30%;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+  padding: 10px 15px;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.form_wrapper input[type=submit]:hover {
+  background: linear-gradient(to right,#5974b3,#2b4373)
+}
+.form_wrapper input[type=submit]:focus {
+  background: linear-gradient(to right,#5974b3,#2b4373)
+}
+
+@media(max-width:768px){
+  .form_wrapper .form-row{
+    flex-direction: column;
+  }
+  .form_wrapper .input_field {
+    width:90%;
+  }
+  .addElementHeader {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .form_wrapper {
-    min-height:50vh;
-    display:flex;
-    justify-content: space-between;
-    flex-direction: column;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 25px;
-    z-index: 10;
+  .content-table .edit-content{
+    left:5%;
+    height: 65vh;
+    width: 85vw;
   }
-  .form_wrapper h2 {
-    font-size: 1.5em;
-    line-height: 1.5em;
-    margin: 0;
-  }
-  .form_wrapper .title_container {
-    text-align: center;
-    padding-bottom: 15px;
-  }
-  .form_wrapper h3 {
-    font-size: 1.1em;
-    font-weight: normal;
-    line-height: 1.5em;
-    margin: 0;
-  }
-  .form_wrapper .form-row{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .form_wrapper label {
-    font-size: 12px;
-  }
-  .form_wrapper .row {
-    margin: 10px -15px;
-  }
-  .form_wrapper .row > div {
-    padding: 0 15px;
-    box-sizing: border-box;
-  }
-  .form_wrapper .input_field {
-    position: relative;
-    margin-bottom: 20px;
-    width:45%;
-  }
-  .form_wrapper .input_field > span {
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #333;
-    height: 100%;
-    border-right: 1px solid #cccccc;
-    text-align: center;
-    width: 30px;
-  }
-  .form_wrapper .input_field > span > i {
-    padding-top: 10px;
-  }
-  .form_wrapper .textarea_field > span{
-    border:none;
-  }
-  .form_wrapper input[type=text], .form_wrapper input[type=email], .form_wrapper input[type=password]{
-    width: 100%;
-    padding: 8px 10px 9px 35px;
-    height: 35px;
-    border: 1px solid #cccccc;
-    box-sizing: border-box;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-  }
-  .form_wrapper textarea {
-    width: 100%;
-    padding: 8px 10px 9px 35px;
-    border: 1px solid #cccccc;
-    box-sizing: border-box;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-  }
-  .form_wrapper input[type=text]:hover, .form_wrapper input[type=email]:hover, .form_wrapper input[type=password]:hover, .form_wrapper textarea {
-    background: #fafafa;
-  }
-
-  .form_wrapper input[type=text]:focus, .form_wrapper input[type=email]:focus, .form_wrapper input[type=password]:focus .form_wrapper textarea {
-    box-shadow: 0 0 2px 1px rgba(255, 169, 0, 0.5);
-    border: 1px solid #f5ba1a;
-    background: #fafafa;
-  }
-  .form_wrapper input[type=submit] {
-    background: linear-gradient(to right,#4b6cb7,#182848);
-    width: 30%;
-    border: none;
-    outline: none;
-    margin-bottom: 10px;
-    transition: all 0.3s ease-in-out;
-    border-radius: 4px;
-    padding: 10px 15px;
-    color: #FFFFFF;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-  .form_wrapper input[type=submit]:hover {
-    background: linear-gradient(to right,#5974b3,#2b4373)
-  }
-  .form_wrapper input[type=submit]:focus {
-    background: linear-gradient(to right,#5974b3,#2b4373)
-  }
-
-  @media(max-width:768px){
-    .form_wrapper .form-row{
-      flex-direction: column;
-    }
-    .form_wrapper .input_field {
-      width:90%;
-    }
-    .addElementHeader {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .content-table .edit-content{
-      left:5%;
-      height: 65vh;
-      width: 85vw;
-    }
-  }
+}
