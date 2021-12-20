@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 
+import { ref as reference, update } from "firebase/database";
+import { db } from '../../../firebase.config';
 
-const DisplayTable = ({serviceData, setServiceData, editWindow, setEditWindow}) => {
+import {toast } from 'react-toastify';
+
+const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEditWindow}) => {
     const [currentService, setCurrentService] = useState({});
     const editService = (service) => {
         setEditWindow(!editWindow);
@@ -9,14 +13,37 @@ const DisplayTable = ({serviceData, setServiceData, editWindow, setEditWindow}) 
     }
 
     const handleServiceEditFormSubmit = (event)=>{
+        setLoader(true);
         event.preventDefault();
+
         const updatedService = serviceData.map((service) =>
         service.serviceKey === currentService.serviceKey ? currentService : service
         );
-        // close editing window
-        setEditWindow(!editWindow);
-        // update the serviceData
-        setServiceData(updatedService);
+        
+        //  TODO implimentation of image update
+        // let updated_image_url = "hello"
+
+        var object = {
+            serviceTitle: currentService.serviceTitle,
+            serviceDetail: currentService.serviceDetail,
+            serviceImageFont: currentService.serviceImageFont,
+            // todo for image upload
+            // serviceImageUrl: image_url !== null && updated_image_url
+          }
+        update(reference(db, 'portfolio/services/' + currentService.serviceKey), object)
+        .then(() => {
+            // close editing window
+            setEditWindow(!editWindow);
+            // update the serviceData
+            setServiceData(updatedService);
+            // close the loader
+            setLoader(false);
+            toast.success("Service updated 😎");
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Unable to update, try again later 😒");
+        });
     }
     return (
         <div className="content-table" style={{overflowX : 'auto'}}>
@@ -59,7 +86,7 @@ const DisplayTable = ({serviceData, setServiceData, editWindow, setEditWindow}) 
             {/* edit editWindow  */}
             <div className="edit-content" style={{display:editWindow ? "flex" : "none"}}>
                 <div onClick={()=>setEditWindow(!editWindow)} className="cross">
-                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <i className="fa fa-times" aria-hidden="true"></i>
                 </div>
                 <div className="form_wrapper">
                     <div className="form_container">

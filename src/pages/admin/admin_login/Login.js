@@ -5,7 +5,6 @@ import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth'
 import {app, authentication} from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 import ScreenLoader from '../../../components/utility/Loader';
 

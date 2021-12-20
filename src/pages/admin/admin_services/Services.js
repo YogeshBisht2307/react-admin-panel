@@ -5,7 +5,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage,db } from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 import DisplayTable from './DisplayTable';
 import ScreenLoader from '../../../components/utility/Loader';
@@ -32,7 +31,6 @@ const AdminServices = () => {
         onValue(serviceRef, (snapshot) => {
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
-                console.log(data);
                 setServiceData(arr => 
                     [...arr, {
                         serviceKey: childSnapshot.key,
@@ -191,7 +189,8 @@ const AdminServices = () => {
                     </div>
                 </div>
             </div>
-            <DisplayTable 
+            <DisplayTable
+                setLoader = {setLoader}
                 serviceData={serviceData} 
                 setServiceData={setServiceData} 
                 editWindow={editWindow} 
