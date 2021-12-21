@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 
 import { ref as reference, update } from "firebase/database";
-import { db } from '../../../firebase.config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage, db } from '../../../firebase.config';
 
 import {toast } from 'react-toastify';
 
 const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEditWindow}) => {
     const [currentService, setCurrentService] = useState({});
+    const [editImage, setEditImage] = useState("");
+    const [editImageUrl, setEditImageUrl] = useState("");
+
+    const refhook = React.useRef();
+
     const editService = (service) => {
         setEditWindow(!editWindow);
         setCurrentService(service);
@@ -15,35 +21,90 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
     const handleServiceEditFormSubmit = (event)=>{
         setLoader(true);
         event.preventDefault();
-
-        const updatedService = serviceData.map((service) =>
-        service.serviceKey === currentService.serviceKey ? currentService : service
-        );
         
         //  TODO implimentation of image update
         // let updated_image_url = "hello"
+        if (editImage !== ""){
+            const storageRef = ref(storage, 'portfolio/images/' + editImage.name);
+            uploadBytes(storageRef, editImage)
+            .catch(error =>{
+                console.log(error);
+                toast.error("Error Occured during image uploading");
+            })
+            .then(() => {
+                // fetching url of the uploaded storage image
+                getDownloadURL(ref(storage, 'portfolio/images/' + editImage.name))
+                .catch(error => { 
+                    console.log(error);
+                    setLoader(false);
+                    toast.error("Error occured during url handling!..");
+                })
+                .then((url) => {
+                    setEditImageUrl(url);
+                    update(reference(db, 'portfolio/services/' + currentService.serviceKey), {
+                        serviceTitle: currentService.serviceTitle,
+                        serviceDetail: currentService.serviceDetail,
+                        serviceImageFont: currentService.serviceImageFont,
+                        serviceImageUrl: url,
+                    })
+                    .then(() => {
+                        // close editing window
+                        setEditWindow(!editWindow);
+                        // update the serviceData
+                        const updatedService = serviceData.map((service) =>
+                            service.serviceKey === currentService.serviceKey ? currentService : service
+                        );
+                        setServiceData(updatedService);
+                        setCurrentService({ 
+                            ...currentService,
+                            serviceImageUrl:  editImageUrl
+                        })
+                        // close the loader
+                        toast.success("Service updated 😎");
+                        refhook.current.value = "";
+                        setLoader(false);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        
+                        toast.error("Unable to update, try again later 😒");
+                    });    
+                }
+                )
+            })
+        }
+        else {
+            update(reference(db, 'portfolio/services/' + currentService.serviceKey), {
+                serviceTitle: currentService.serviceTitle,
+                serviceDetail: currentService.serviceDetail,
+                serviceImageFont: currentService.serviceImageFont,
+            })
+            .then(() => {
+                // close editing window
+                setEditWindow(!editWindow);
+                // update the serviceData
+                const updatedService = serviceData.map((service) =>
+                    service.serviceKey === currentService.serviceKey ? currentService : service
+                );
+                setServiceData(updatedService);
+                // close the loader
+                toast.success("Service updated 😎");
+                setLoader(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error("Unable to update, try again later 😒");
+            });
+        }
 
-        var object = {
-            serviceTitle: currentService.serviceTitle,
-            serviceDetail: currentService.serviceDetail,
-            serviceImageFont: currentService.serviceImageFont,
-            // todo for image upload
-            // serviceImageUrl: image_url !== null && updated_image_url
-          }
-        update(reference(db, 'portfolio/services/' + currentService.serviceKey), object)
-        .then(() => {
-            // close editing window
-            setEditWindow(!editWindow);
-            // update the serviceData
-            setServiceData(updatedService);
-            // close the loader
-            setLoader(false);
-            toast.success("Service updated 😎");
-        })
-        .catch((error) => {
-            console.log(error);
-            toast.error("Unable to update, try again later 😒");
-        });
+        // var object = {
+        //     serviceTitle: currentService.serviceTitle,
+        //     serviceDetail: currentService.serviceDetail,
+        //     serviceImageFont: currentService.serviceImageFont,
+        //     // todo for image upload
+        //     // serviceImageUrl: image_url !== null && updated_image_url
+        //   }
+        
     }
     return (
         <div className="content-table" style={{overflowX : 'auto'}}>
@@ -138,7 +199,13 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                                         />
                                     </div>
                                     <div className="input_field">
-                                        <input type="file" name="" />
+                                        <input type="file" 
+                                            name="editImage" 
+                                            ref={refhook} 
+                                            onChange={
+                                                (e) => setEditImage(e.target.files[0])
+                                            }
+                                        />
                                     </div>
                                 </div>
                                 <div className="form-row">
