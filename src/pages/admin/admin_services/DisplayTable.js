@@ -12,6 +12,21 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
 
     const refhook = React.useRef();
 
+    const deleteService = (service) => {
+        setLoader(true);
+        update(reference(db, 'portfolio/services/' + service.serviceKey), {
+            deleted : true
+        }).catch((error) => {
+            console.log(error);
+            setLoader(false);
+            toast.error("Unable to delete, try again later 😒");
+        }).then(() => {
+            setServiceData(serviceData.filter(item => item.serviceKey !== service.serviceKey));
+            toast.success("Service deleted 😎");
+            setLoader(false);
+        })
+    }
+
     const editService = (service) => {
         setEditWindow(!editWindow);
         setCurrentService(service);
@@ -119,7 +134,7 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                                     <button className='button' onClick={()=> editService(service)}>Edit</button>
                                 </td>
                                 <td className='delete'>
-                                    <button className='button'>Delete</button>
+                                    <button className='button' onClick={() => deleteService(service)}>Delete</button>
                                 </td>
                             </tr>
                         )

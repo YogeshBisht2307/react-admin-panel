@@ -31,16 +31,18 @@ const AdminServices = () => {
         onValue(serviceRef, (snapshot) => {
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
-                setServiceData(arr => 
-                    [...arr, {
-                        serviceKey: childSnapshot.key,
-                        serviceId : data.serviceId,
-                        serviceTitle: data.serviceTitle,
-                        serviceDetail: data.serviceDetail,
-                        serviceImageUrl: data.serviceImageUrl,
-                        serviceImageFont: data.serviceImageFont,
-                    }]
-                )
+                if (data.deleted == false){
+                    setServiceData(arr => 
+                        [...arr, {
+                            serviceKey: childSnapshot.key,
+                            serviceId : data.serviceId,
+                            serviceTitle: data.serviceTitle,
+                            serviceDetail: data.serviceDetail,
+                            serviceImageUrl: data.serviceImageUrl,
+                            serviceImageFont: data.serviceImageFont,
+                        }]
+                    )
+                }
             });
             setLoader(false);
         });
@@ -74,6 +76,7 @@ const AdminServices = () => {
                     serviceDetail: serviceDetail,
                     serviceImageUrl: url,
                     serviceImageFont: serviceImageFont,
+                    deleted : false,
                 });
             }).catch(error => {
                 console.log(error);
