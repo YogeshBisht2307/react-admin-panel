@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { ref as reference, update } from "firebase/database";
+import { ref as reference, update, remove } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../../../firebase.config';
 
@@ -9,21 +9,45 @@ import {toast } from 'react-toastify';
 const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEditWindow}) => {
     const [currentService, setCurrentService] = useState({});
     const [editImage, setEditImage] = useState("");
+    const [deleteWindow, setDeleteWindow] = useState("");
 
     const refhook = React.useRef();
 
     const deleteService = (service) => {
+        setDeleteWindow(!deleteWindow)
+        setCurrentService(service);
+    }
+
+    const handleSoftDelete = () => {
         setLoader(true);
-        update(reference(db, 'portfolio/services/' + service.serviceKey), {
+        update(reference(db, 'portfolio/services/' + currentService.serviceKey), {
             deleted : true
         }).catch((error) => {
             console.log(error);
             setLoader(false);
             toast.error("Unable to delete, try again later 😒");
         }).then(() => {
-            setServiceData(serviceData.filter(item => item.serviceKey !== service.serviceKey));
+            setServiceData(serviceData.filter(item => item.serviceKey !== currentService.serviceKey));
             toast.success("Service deleted 😎");
             setLoader(false);
+            setDeleteWindow(!deleteWindow);
+        })
+    }
+
+    const handlePermanentDelete = () => {
+        let useRefer = reference(db, 'portfolio/services/' + currentService.serviceKey)
+        remove(useRefer).catch((error) => {
+            console.log(error);
+            toast.error("unable to make permanent delete!");
+            setLoader(false);
+            setDeleteWindow(!deleteWindow);
+
+        }).then(() => {
+            setLoader(false);
+            setServiceData(serviceData.filter(item => item.serviceKey !== currentService.serviceKey));
+            toast.success("Service deleted 😎");
+            setDeleteWindow(!deleteWindow);
+
         })
     }
 
@@ -147,6 +171,29 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                     </tr>
                 </tfoot>
             </table>
+            {/* delete window */}
+            
+            <div className="delete_container" style={{display : deleteWindow ? "flex": "none"}}>
+                <div className="box">
+                    <div onClick={()=>setDeleteWindow(!deleteWindow)} className="cross">
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                    </div>
+                    <h3>Delete Service?</h3>
+                    <p>Are you sure you want to delete</p>
+                    
+                    <div className="warn_info">
+                        <h4><i className="fa fa-warning"></i> Warning</h4>
+                        <p>By deleting service ({currentService.serviceTitle}) you can't undo this action.</p>
+                    </div>
+                    
+                    <div className="clearfix">
+                        <button className="btn1" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
+                        <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete}>Permanent Delete<i className="fa fa-trash"></i
+                        ></button>
+                    </div>
+                </div>
+            </div>
+            
             {/* edit editWindow  */}
             <div className="edit-content" style={{display:editWindow ? "flex" : "none"}}>
                 <div onClick={()=>setEditWindow(!editWindow)} className="cross">
