@@ -22,7 +22,7 @@ const App = () => {
 
         {/* admin panel */}
         <Route
-          path="/admin/dashboard"
+          path="admin/dashboard"
           element={
             <RequireAuth>
               <DashboardLayout>
@@ -32,7 +32,7 @@ const App = () => {
           }
           />
         <Route
-          path="/admin/services"
+          path="admin/services"
           element={
             <RequireAuth>
               <DashboardLayout>
@@ -42,6 +42,7 @@ const App = () => {
           }
           />
         <Route path="admin/login" element={<AdminLogin />} />
+        <Route path="admin/" element={<AdminLogin />} />
 
         {/* Not found router */}
         <Route

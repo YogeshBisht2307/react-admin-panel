@@ -9,7 +9,6 @@ import {toast } from 'react-toastify';
 const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEditWindow}) => {
     const [currentService, setCurrentService] = useState({});
     const [editImage, setEditImage] = useState("");
-    const [editImageUrl, setEditImageUrl] = useState("");
 
     const refhook = React.useRef();
 
@@ -18,12 +17,13 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
         setCurrentService(service);
     }
 
-    const handleServiceEditFormSubmit = (event)=>{
+    const handleServiceEditFormSubmit = async(event)=>{
         setLoader(true);
         event.preventDefault();
         
         //  TODO implimentation of image update
         // let updated_image_url = "hello"
+        let imageUrl = ""
         if (editImage !== ""){
             const storageRef = ref(storage, 'portfolio/images/' + editImage.name);
             uploadBytes(storageRef, editImage)
@@ -40,7 +40,7 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                     toast.error("Error occured during url handling!..");
                 })
                 .then((url) => {
-                    setEditImageUrl(url);
+                    imageUrl = url
                     update(reference(db, 'portfolio/services/' + currentService.serviceKey), {
                         serviceTitle: currentService.serviceTitle,
                         serviceDetail: currentService.serviceDetail,
@@ -48,29 +48,27 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                         serviceImageUrl: url,
                     })
                     .then(() => {
-                        // close editing window
-                        setEditWindow(!editWindow);
                         // update the serviceData
-                        const updatedService = serviceData.map((service) =>
-                            service.serviceKey === currentService.serviceKey ? currentService : service
-                        );
+                        const updatedService = serviceData.map((service) => {
+                            if (service.serviceKey === currentService.serviceKey){
+                                service.serviceImageUrl = imageUrl
+                                service.serviceTitle = currentService.serviceTitle
+                                service.serviceDetail = currentService.serviceDetail
+                                service.serviceImageFont = currentService.serviceImageFont 
+                            }
+                            return service
+                        });
                         setServiceData(updatedService);
-                        setCurrentService({ 
-                            ...currentService,
-                            serviceImageUrl:  editImageUrl
-                        })
+                        setEditWindow(!editWindow);
+                        setLoader(false);
                         // close the loader
                         toast.success("Service updated 😎");
-                        refhook.current.value = "";
-                        setLoader(false);
                     })
                     .catch((error) => {
                         console.log(error);
-                        
                         toast.error("Unable to update, try again later 😒");
                     });    
-                }
-                )
+                })
             })
         }
         else {
@@ -87,7 +85,6 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                     service.serviceKey === currentService.serviceKey ? currentService : service
                 );
                 setServiceData(updatedService);
-                // close the loader
                 toast.success("Service updated 😎");
                 setLoader(false);
             })
@@ -96,15 +93,6 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                 toast.error("Unable to update, try again later 😒");
             });
         }
-
-        // var object = {
-        //     serviceTitle: currentService.serviceTitle,
-        //     serviceDetail: currentService.serviceDetail,
-        //     serviceImageFont: currentService.serviceImageFont,
-        //     // todo for image upload
-        //     // serviceImageUrl: image_url !== null && updated_image_url
-        //   }
-        
     }
     return (
         <div className="content-table" style={{overflowX : 'auto'}}>
@@ -128,10 +116,10 @@ const DisplayTable = ({setLoader, serviceData, setServiceData, editWindow, setEd
                                 <td data-title='service_image_font'>{service.serviceImageFont}</td>
                                 <td data-title='service_image_url'>{service.serviceImageUrl}</td>
                                 <td className='edit'>
-                                    <button className='button' id="{serviceId}" onClick={()=> editService(service)}>Edit</button>
+                                    <button className='button' onClick={()=> editService(service)}>Edit</button>
                                 </td>
                                 <td className='delete'>
-                                    <button id="{serviceId}" className='button'>Delete</button>
+                                    <button className='button'>Delete</button>
                                 </td>
                             </tr>
                         )
