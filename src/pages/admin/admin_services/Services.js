@@ -13,8 +13,6 @@ import './services.css';
 const AdminServices = () => {
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
     const [loader, setLoader] = useState(false);
-
-    const [editWindow, setEditWindow] = useState(false);
     const [serviceImageFont, setServiceImageFont] = useState("");
     const [serviceTitle, setServiceTitle] = useState("");
     const [serviceDetail, setServiceDetail] = useState("");
@@ -31,7 +29,7 @@ const AdminServices = () => {
         onValue(serviceRef, (snapshot) => {
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
-                if (data.deleted == false){
+                if (data.deleted === false){
                     setServiceData(arr => 
                         [...arr, {
                             serviceKey: childSnapshot.key,
@@ -51,7 +49,7 @@ const AdminServices = () => {
     const submitData = async(e) => {
         e.preventDefault();
 
-        setLoader(true);
+        setLoader(!loader);
         setServiceData([]);
 
         const storageRef = ref(storage, 'portfolio/images/' + image.name);
@@ -65,7 +63,7 @@ const AdminServices = () => {
             getDownloadURL(ref(storage, 'portfolio/images/' + image.name))
             .catch(error => { 
                 console.log(error);
-                setLoader(false);
+                setLoader(!loader);
                 toast.error("Error occured during url handling!..");
             })
             .then((url) => {
@@ -80,7 +78,7 @@ const AdminServices = () => {
                 });
             }).catch(error => {
                 console.log(error);
-                setLoader(false);
+                setLoader(!loader);
                 toast.error("Error occured during service data uploading!...");
             })
             .then(() =>{
@@ -89,7 +87,7 @@ const AdminServices = () => {
                 setServiceTitle("");
                 setImage("");
                 refhook.current.value = "";
-                setLoader(false);
+                setLoader(!loader);
                 toast.success("Hurray !!! Service added successfully !");
             })
         })
@@ -193,11 +191,10 @@ const AdminServices = () => {
                 </div>
             </div>
             <DisplayTable
+                loader ={loader}
                 setLoader = {setLoader}
                 serviceData={serviceData} 
                 setServiceData={setServiceData} 
-                editWindow={editWindow} 
-                setEditWindow={setEditWindow}
             />  
         </div>
     </div> 
