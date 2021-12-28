@@ -49,13 +49,12 @@ const AdminServices = () => {
     const submitData = async(e) => {
         e.preventDefault();
 
-        setLoader(!loader);
+        setLoader(true);
         setServiceData([]);
 
         const storageRef = ref(storage, 'portfolio/images/' + image.name);
         uploadBytes(storageRef, image)
-        .catch(error =>{
-            console.log(error);
+        .catch(() =>{
             toast.error("Error Occured during image uploading");
         })
         .then(() => {
@@ -63,7 +62,7 @@ const AdminServices = () => {
             getDownloadURL(ref(storage, 'portfolio/images/' + image.name))
             .catch(error => { 
                 console.log(error);
-                setLoader(!loader);
+                setLoader(false);
                 toast.error("Error occured during url handling!..");
             })
             .then((url) => {
@@ -76,9 +75,8 @@ const AdminServices = () => {
                     serviceImageFont: serviceImageFont,
                     deleted : false,
                 });
-            }).catch(error => {
-                console.log(error);
-                setLoader(!loader);
+            }).catch(() => {
+                setLoader(false);
                 toast.error("Error occured during service data uploading!...");
             })
             .then(() =>{
@@ -87,7 +85,7 @@ const AdminServices = () => {
                 setServiceTitle("");
                 setImage("");
                 refhook.current.value = "";
-                setLoader(!loader);
+                setLoader(false);
                 toast.success("Hurray !!! Service added successfully !");
             })
         })

@@ -11,22 +11,20 @@ const EditService = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
     const refhook = React.useRef();
 
     const handleServiceEditFormSubmit = async(event)=>{
-        setLoader(true);
         event.preventDefault();
+        setLoader(true);
         
         let imageUrl = ""
         if (editImage !== ""){
             const storageRef = ref(storage, 'portfolio/images/' + editImage.name);
             uploadBytes(storageRef, editImage)
-            .catch(error =>{
-                console.log(error);
+            .catch(() =>{
                 toast.error("Error Occured during image uploading");
             })
             .then(() => {
                 // fetching url of the uploaded storage image
                 getDownloadURL(ref(storage, 'portfolio/images/' + editImage.name))
-                .catch(error => { 
-                    console.log(error);
+                .catch(() => { 
                     setLoader(false);
                     toast.error("Error occured during url handling!..");
                 })
@@ -55,8 +53,7 @@ const EditService = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                         // close the loader
                         toast.success("Service updated 😎");
                     })
-                    .catch((error) => {
-                        console.log(error);
+                    .catch(() => {
                         toast.error("Unable to update, try again later 😒");
                     });    
                 })
@@ -78,8 +75,7 @@ const EditService = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                 setServiceData(updatedService);
                 toast.success("Service updated 😎");
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
                 toast.error("Unable to update, try again later 😒");
             });
         }

@@ -4,7 +4,15 @@ import DeleteService from './DeleteService';
 import EditService from './EditService';
 
 const DisplayTable = ({loader, setLoader, serviceData, setServiceData}) => {
-    const [currentEditItem, setCurrentEditItem] = useState({});
+    const initialEditItemState = {
+        'serviceKey':"",
+        'serviceImageUrl':"",
+        'serviceTitle':"", 
+        'serviceDetail':"",
+        'serviceImageFont': "",
+        'serviceId':""
+    }
+    const [currentEditItem, setCurrentEditItem] = useState(initialEditItemState);
     const [editPopup, setEditPopup] = useState(false)
     const [currentDelItem, setCurrentDelItem] = useState({});
     const [delPopup, setDelPopup] = useState(false);
@@ -81,4 +89,4 @@ const DisplayTable = ({loader, setLoader, serviceData, setServiceData}) => {
     )
 }
 
-export default DisplayTable
+export default DisplayTable;

@@ -39,7 +39,7 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, servic
         })
     }
     return (
-        <div className="delete_container" style={{display : delPopup ? "flex": "none"}}>
+        <div className="delete_container" style={{display : delPopup ? "flex" : "none"}}>
             <div className="box">
                 <div onClick={() => setDelPopup(!delPopup)} className="cross">
                     <i className="fa fa-times" aria-hidden="true"></i>
@@ -54,7 +54,7 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, servic
                 
                 <div className="clearfix">
                     <button className="btn1" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
-                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete}>Permanent Delete<i className="fa fa-trash"></i
+                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete <i className="fa fa-trash"></i
                     ></button>
                 </div>
             </div>
