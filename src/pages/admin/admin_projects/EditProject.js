@@ -10,10 +10,36 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
     const [editImage, setEditImage] = useState("");
     const refhook = React.useRef();
 
-    // TODO validation for edit form will be added here
+    const validateEditData = (editItem) => {
+        if (editItem.projectTitle === ""){
+            toast.error("Invalid Title !");
+            return false;
+        }
+        if (editItem.projectDate === ""){
+            toast.error("Invalid Date !");
+            return false;
+        }
+        if (editItem.projectLink === ""){
+            toast.error("Invalid Link !");
+            return false;
+        }
+        if (editItem.projectTechTitle === ""){
+            toast.error("Inavlid Tech Stack !")
+            return false;
+        }
+        if (editItem.projectDetail === ""){
+            toast.error("Invalid Detail !");
+            return false;
+        }
+        return true;
+    }
+
 
     const handleprojectEditFormSubmit = async(event)=>{
         event.preventDefault();
+        if (validateEditData(currentEditItem) !== true){
+            return;
+        }
         setLoader(true);
         
         let imageUrl = ""
@@ -59,7 +85,8 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                         // close the loader
                         toast.success("project updated 😎");
                     })
-                    .catch(() => {
+                    .catch((error) => {
+                        console.log(error);
                         toast.error("Unable to update, try again later 😒");
                     });    
                 })
@@ -83,7 +110,8 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                 setProjectsData(updatedproject);
                 toast.success("project updated 😎");
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 toast.error("Unable to update, try again later 😒");
             });
         }
@@ -102,7 +130,7 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                     <div className="row">
                         <form onSubmit={handleprojectEditFormSubmit}>
                             <div className="form-row">
-                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                     <input type="text" name=""
                                         value={currentEditItem.projectTitle} 
                                         onChange={
@@ -110,12 +138,11 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                                                 ...currentEditItem,
                                                 projectTitle: e.target.value 
                                             })
-                                        } 
-                                        required 
+                                        }  
                                         placeholder="project Title" 
                                     />
                                 </div>
-                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
+                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                     <input type="text" name=""
                                         value={currentEditItem.projectDate}
                                         onChange={
@@ -124,13 +151,12 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                                                 projectDate: e.target.value 
                                                 }
                                             )} 
-                                        required
                                         placeholder="project Date" 
                                     />
                                 </div>
                             </div>
                             <div className="form-row">
-                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                     <input type="text" name=""
                                         value={currentEditItem.projectTechTitle} 
                                         onChange={
@@ -139,11 +165,10 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                                                 projectTechTitle: e.target.value 
                                             })
                                         } 
-                                        required 
                                         placeholder="project Tech Stack" 
                                     />
                                 </div>
-                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
+                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                     <input type="text" name=""
                                         value={currentEditItem.projectLink}
                                         onChange={
@@ -152,13 +177,12 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                                                 projectLink: e.target.value 
                                                 }
                                             )} 
-                                        required
                                         placeholder="project Link" 
                                     />
                                 </div>
                             </div>
                             <div className="form-row">
-                                <div className="input_field textarea_field"> <span><i aria-hidden="true" className="fa fa-book"></i></span>
+                                <div className="input_field textarea_field"> <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                     <textarea name="detail" rows="3" 
                                         value={currentEditItem.projectDetail} 
                                         onChange={
@@ -168,7 +192,6 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                                             })
                                         } 
                                         placeholder="project Detail"
-                                        required
                                     />
                                 </div>
                                 <div className="input_field">

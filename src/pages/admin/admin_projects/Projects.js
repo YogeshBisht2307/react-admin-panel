@@ -6,7 +6,6 @@ import { storage,db } from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
 
-// import DisplayTable from './DisplayTable';
 import ScreenLoader from '../../../components/utility/Loader';
 import DisplayProjects from './DisplayProjects';
 
@@ -24,13 +23,12 @@ const AdminProjects = () => {
     const [loader, setLoader] = useState(false);
     const [projectData, setProjectData] = useState(projectDataInitialState)
     const [projectImage, setProjectImage] = useState("");
-
     const [projectsData, setProjectsData] = useState([]);
 
     const refhook = React.useRef();
 
     // create a seprate utils file for validations stuff
-    const validateProjectData = (e) => {
+    const validateProjectData = (projectData, projectImage) => {
         if (projectData.projectTitle === ""){
             toast.error("Invalid Project Title !");
             return false;
@@ -87,8 +85,8 @@ const AdminProjects = () => {
 
     const submitData = async(e) => {
         e.preventDefault();
-        if ( validateProjectData() === false ){
-            return
+        if ( validateProjectData(projectData, projectImage) === false ){
+            return;
         }
 
         setLoader(true);
@@ -129,6 +127,7 @@ const AdminProjects = () => {
                 setProjectData(projectDataInitialState)
                 setProjectImage("");
                 setLoader(false);
+                setAddRowCollapsible(!addRowCollapsible);
                 toast.success("Hurray !!! Project added successfully !");
             })
         })
@@ -177,7 +176,7 @@ const AdminProjects = () => {
                                 <form onSubmit={submitData}>
                                     <div className="form-row">
                                         <div className="input_field"> 
-                                            <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                            <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                             <input type="text" 
                                                 name="title" 
                                                 placeholder="Project Title" 
@@ -191,7 +190,7 @@ const AdminProjects = () => {
                                             />
                                         </div>
                                         <div className="input_field"> 
-                                            <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
+                                            <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                             <input type="text" 
                                                 name="image" 
                                                 placeholder="Project Done Date" 
@@ -208,7 +207,7 @@ const AdminProjects = () => {
 
                                     <div className="form-row">
                                         <div className="input_field"> 
-                                            <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                            <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                             <input type="text" 
                                                 name="title" 
                                                 placeholder="Project Link" 
@@ -222,7 +221,7 @@ const AdminProjects = () => {
                                             />
                                         </div>
                                         <div className="input_field"> 
-                                            <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
+                                            <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                             <input type="text" 
                                                 name="image" 
                                                 placeholder="Project Technology Stack" 
@@ -239,7 +238,7 @@ const AdminProjects = () => {
 
                                     <div className="form-row">
                                         <div className="input_field textarea_field"> 
-                                            <span><i aria-hidden="true" className="fa fa-book"></i></span>
+                                            <span><i aria-hidden="true" className="fa fa-hand-peace-o"></i></span>
                                             <textarea rows="3"
                                                 name="detail"
                                                 placeholder="Project Detail" 

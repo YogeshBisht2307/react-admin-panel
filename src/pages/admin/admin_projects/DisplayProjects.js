@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import EditProject from './EditProject';
+import DeleteProject from './DeleteProject';
 
 const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => {
     const initialEditItemState = {
@@ -14,12 +15,12 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
         'deleted' : false,
     }
     const [currentEditItem, setCurrentEditItem] = useState(initialEditItemState);
-    const [editPopup, setEditPopup] = useState(false)
+    const [editPopup, setEditPopup] = useState(false);
     const [currentDelItem, setCurrentDelItem] = useState({});
     const [delPopup, setDelPopup] = useState(false);
 
     const handleDeletePopup = (project) => {
-        setDelPopup(!delPopup)
+        setDelPopup(!delPopup);
         setCurrentDelItem(project);
     }
 
@@ -65,10 +66,20 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
             {/* table footer */}
                 <tfoot>
                     <tr>
-                    <th colSpan='5'>Year: 2021</th>
+                    <th colSpan='5'>Year: {new Date().getFullYear()}</th>
                     </tr>
                 </tfoot>
             </table>
+            <DeleteProject
+                loader = {loader}
+                delPopup = {delPopup} 
+                setDelPopup = {setDelPopup}
+                currentDelItem = {currentDelItem}
+                setLoader = {setLoader}
+                projectsData = {projectsData}
+                setProjectsData = {setProjectsData}
+            />
+
             <EditProject
                 loader = {loader}
                 editPopup = {editPopup}
