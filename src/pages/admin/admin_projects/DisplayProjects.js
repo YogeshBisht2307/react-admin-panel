@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import EditProject from './EditProject';
+
 const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => {
     const initialEditItemState = {
         'projectKey': "",
@@ -67,6 +69,16 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
                     </tr>
                 </tfoot>
             </table>
+            <EditProject
+                loader = {loader}
+                editPopup = {editPopup}
+                setEditPopup = {setEditPopup}
+                currentEditItem = {currentEditItem}
+                setCurrentEditItem = {setCurrentEditItem}
+                setLoader = {setLoader}
+                projectsData = {projectsData}
+                setProjectsData = {setProjectsData}
+            />
         </div>
     )
 }
