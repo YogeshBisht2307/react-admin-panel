@@ -44,6 +44,12 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link to='/admin/contacts'>
+                        <span className="icon"><i className="fa fa-database"></i></span>
+                        <span className="item">Contact List</span>
+                    </Link>
+                </li>
+                <li>
                     <Link to='/admin/settings'>
                         <span className="icon"><i className="fa fa-cog"></i></span>
                         <span className="item">Settings</span>
