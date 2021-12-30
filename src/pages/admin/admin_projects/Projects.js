@@ -1,6 +1,6 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 
-import { ref as reference, push } from "firebase/database";
+import { ref as reference, push, onValue } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage,db } from '../../../firebase.config';
 
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 // import DisplayTable from './DisplayTable';
 import ScreenLoader from '../../../components/utility/Loader';
+import DisplayProjects from './DisplayProjects';
 
 const AdminProjects = () => {
     const projectDataInitialState = {
@@ -28,6 +29,7 @@ const AdminProjects = () => {
 
     const refhook = React.useRef();
 
+    // create a seprate utils file for validations stuff
     const validateProjectData = (e) => {
         if (projectData.projectTitle === ""){
             toast.error("Invalid Project Title !");
@@ -55,6 +57,32 @@ const AdminProjects = () => {
         }
 
         return true;
+    }
+    
+    const fetchData = async() => {
+        setLoader(true);
+        
+        const projectRef = reference(db, 'portfolio/projects');
+        onValue(projectRef, (snapshot) => {
+            snapshot.forEach(function (childSnapshot) {
+                let data = childSnapshot.val();
+                if (data.deleted === false){
+                    setProjectsData(arr => 
+                        [...arr, {
+                            projectKey: childSnapshot.key,
+                            projectId : data.projectId,
+                            projectTitle: data.projectTitle,
+                            projectDate: data.projectDate,
+                            projectDetail: data.projectDetail,
+                            projectLink: data.projectLink,
+                            projectTechTitle: data.projectTechTitle,
+                            projectImageUrl: data.projectImageUrl,
+                        }]
+                    )
+                }
+            });
+            setLoader(false);
+        });
     }
 
     const submitData = async(e) => {
@@ -101,10 +129,14 @@ const AdminProjects = () => {
                 setProjectData(projectDataInitialState)
                 setProjectImage("");
                 setLoader(false);
-                toast.success("Hurray !!! Service added successfully !");
+                toast.success("Hurray !!! Project added successfully !");
             })
         })
     }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     if (loader){
         return (
@@ -240,6 +272,14 @@ const AdminProjects = () => {
                     </div>
                 </div>
             </div>
+
+            <DisplayProjects
+                loader ={loader}
+                setLoader = {setLoader}
+                projectsData={projectsData} 
+                setProjectsData={setProjectsData} 
+            />
+
         </div>
     </div> 
     </>
