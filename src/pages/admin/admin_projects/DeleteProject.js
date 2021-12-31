@@ -5,8 +5,9 @@ import { db } from '../../../firebase.config';
 
 import {toast } from 'react-toastify';
 
-const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, projectsData, setProjectsData}) => {
+const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, setProjectsData}) => {
     const handleSoftDelete = () => {
+        setProjectsData([]);
         setLoader(true);
         update(reference(db, 'portfolio/projects/' + currentDelItem.projectKey), {
             deleted : true
@@ -15,7 +16,6 @@ const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, projec
             setLoader(false);
             toast.error("Unable to delete, try again later 😒");
         }).then(() => {
-            setProjectsData(projectsData.filter(item => item.projectKey !== currentDelItem.projectKey));
             toast.success("Project deleted 😎");
             setLoader(false);
             setDelPopup(!delPopup);
@@ -23,6 +23,7 @@ const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, projec
     }
 
     const handlePermanentDelete = () => {
+        setProjectsData([]);
         let useRefer = reference(db, 'portfolio/projects/' + currentDelItem.projectKey)
         remove(useRefer).catch((error) => {
             console.log(error);
@@ -32,7 +33,6 @@ const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, projec
 
         }).then(() => {
             setLoader(false);
-            setProjectsData(projectsData.filter(item => item.projectKey !== currentDelItem.projectKey));
             toast.success("Project deleted 😎");
             setDelPopup(!delPopup);
         })

@@ -56,11 +56,7 @@
   height: 50vh;
   width:60vw;
 }
-/* project edit content */
-.content-table .edit-content.project{
-  height: 60vh;
-  width: 60vw;
-}
+
 .content-table .edit-content .cross{
   padding:10px;
   background:#000;
@@ -326,10 +322,6 @@
     left:5%;
     height: 65vh;
     width: 85vw;
-  }
-  .content-table .edit-content.project{
-    top:10%;
-    height:75vh;
   }
   .delete_container{
     left:5%;

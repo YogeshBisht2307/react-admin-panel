@@ -6,7 +6,7 @@ import { storage, db } from '../../../firebase.config';
 
 import {toast } from 'react-toastify';
 
-const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader, projectsData, setProjectsData }) => {
+const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader,setProjectsData }) => {
     const [editImage, setEditImage] = useState("");
     const refhook = React.useRef();
 
@@ -37,12 +37,13 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
 
     const handleprojectEditFormSubmit = async(event)=>{
         event.preventDefault();
+        setProjectsData([]);
+        
         if (validateEditData(currentEditItem) !== true){
             return;
         }
         setLoader(true);
         
-        let imageUrl = ""
         if (editImage !== ""){
             const storageRef = ref(storage, 'images/projects/' + editImage.name);
             uploadBytes(storageRef, editImage)
@@ -57,7 +58,6 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                     toast.error("Error occured during url handling!..");
                 })
                 .then((url) => {
-                    imageUrl = url
                     update(reference(db, 'portfolio/projects/' + currentEditItem.projectKey), {
                         projectTitle: currentEditItem.projectTitle,
                         projectDate: currentEditItem.projectDate,
@@ -67,22 +67,8 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
                         projectImageUrl: url,
                     })
                     .then(() => {
-                        // update the projectData
-                        const updatedproject = projectsData.map((project) => {
-                            if (project.projectKey === currentEditItem.projectKey){
-                                project.projectImageUrl = imageUrl
-                                project.projectTitle = currentEditItem.projectTitle
-                                project.projectDetail = currentEditItem.projectDetail
-                                project.projectDate = currentEditItem.projectDate
-                                project.projectLink = currentEditItem.projectLink 
-                                project.projectTechTitle = currentEditItem.projectTechTitle 
-                            }
-                            return project
-                        });
-                        setProjectsData(updatedproject);
                         setEditPopup(!editPopup);
                         setLoader(false);
-                        // close the loader
                         toast.success("project updated 😎");
                     })
                     .catch((error) => {
@@ -102,12 +88,8 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
             })
             .then(() => {
                 // update the projectData
-                const updatedproject = projectsData.map((project) =>
-                    project.projectKey === currentEditItem.projectKey ? currentEditItem : project
-                );
                 setLoader(false);
                 setEditPopup(!editPopup);
-                setProjectsData(updatedproject);
                 toast.success("project updated 😎");
             })
             .catch((error) => {

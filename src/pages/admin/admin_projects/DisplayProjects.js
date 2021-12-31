@@ -43,20 +43,19 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
                 </tr>
                 </thead>
                 <tbody>
-                    {/* first row */}
                     {projectsData.map((project, index) => {
                         return (
                             <tr key={index}>
-                                <td data-title='project_title'>{project.projectTitle}</td>
-                                <td data-title='project_date'>{project.projectDate}</td>
-                                <td data-title='project_link'>{project.projectLink}</td>
-                                <td data-title='project_tech_title'>{project.projectTechTitle}</td>
-                                <td data-title='project_image_url'>{project.projectImageUrl}</td>
-                                <td data-title='project_detail'>{project.projectDetail}</td>
-                                <td className='edit'>
+                                <td className='table_column_item'>{project.projectTitle}</td>
+                                <td className='table_column_item'>{project.projectDate}</td>
+                                <td className='table_column_item'>{project.projectLink}</td>
+                                <td className='table_column_item'>{project.projectTechTitle}</td>
+                                <td className='table_column_item'>{project.projectImageUrl}</td>
+                                <td className='table_column_item'>{project.projectDetail}</td>
+                                <td className='table_column_item edit'>
                                     <button className='button' onClick={()=> handleEditPopup(project)}>Edit</button>
                                 </td>
-                                <td className='delete'>
+                                <td className='table_column_item delete'>
                                     <button className='button' onClick={() => handleDeletePopup(project)}>Delete</button>
                                 </td>
                             </tr>
@@ -66,7 +65,7 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
             {/* table footer */}
                 <tfoot>
                     <tr>
-                    <th colSpan='5'>Year: {new Date().getFullYear()}</th>
+                        <th colSpan='5'>Date: {new Date().getDate() + "-" + (new Date().getMonth()+1) + "-" + new Date().getFullYear()}</th>
                     </tr>
                 </tfoot>
             </table>
@@ -76,7 +75,6 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
                 setDelPopup = {setDelPopup}
                 currentDelItem = {currentDelItem}
                 setLoader = {setLoader}
-                projectsData = {projectsData}
                 setProjectsData = {setProjectsData}
             />
 
@@ -87,7 +85,6 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
                 currentEditItem = {currentEditItem}
                 setCurrentEditItem = {setCurrentEditItem}
                 setLoader = {setLoader}
-                projectsData = {projectsData}
                 setProjectsData = {setProjectsData}
             />
         </div>
