@@ -9,6 +9,7 @@ import AdminDashboard from "./pages/admin/admin_dashboard/Dashboard";
 import AdminServices from "./pages/admin/admin_services/Services";
 import NoRoutePage from "./components/utility/404";
 import './pages/admin/admin.css';
+import TechStack from "./pages/admin/admin_tech_stack/TechStack";
 
 const Home = () => <h1>Home (Public)</h1>;
 
@@ -37,7 +38,18 @@ const App = () => {
               </DashboardLayout>
             </RequireAuth>
           }
-          />
+        />
+        <Route
+          path="admin/techstack"
+          element={
+            <RequireAuth>
+              <DashboardLayout>
+                <TechStack/>
+              </DashboardLayout>
+            </RequireAuth>
+          }
+        />
+
         <Route path="admin/login" element={<AdminLogin />} />
         <Route path="admin/" element={<AdminLogin />} />
 
