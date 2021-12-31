@@ -25,7 +25,7 @@
 .content-table .select {
   padding: 10px;
 }
-.content-table .edit button, .content-table .delete button{
+.content-table .edit button, .content-table .delete button, .content-table .replied button{
   padding:5px 15px;
   width: 100%;
   border: 0;

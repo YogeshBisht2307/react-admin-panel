@@ -1,13 +1,18 @@
 import React,{ useState, useEffect } from 'react'
 
-import { ref as reference, onValue } from "firebase/database";
+import { ref as reference, onValue, update } from "firebase/database";
 import { db } from '../../../firebase.config';
 import ScreenLoader from '../../../components/utility/Loader';
 import { ToastContainer, toast } from 'react-toastify';
+import './contact.css';
+
+import DeleteContact from './DeleteContact';
 
 const AdminContact = () => {
     const [contactList, setContactList] = useState([]);
     const [loader, setLoader] = useState(false);
+    const [currentDelItem, setCurrentDelItem] = useState({});
+    const [delPopup, setDelPopup] = useState(false);
 
     const tableToCSV = (data_table) => {
         // Variable to store the final csv data
@@ -78,10 +83,40 @@ const AdminContact = () => {
 
     }
 
+    const handleDeletePopup = (contact) => {
+        setDelPopup(!delPopup)
+        setCurrentDelItem(contact);
+    }
+
+    const handleReplied = (event, repliedItem) => {
+        setLoader(true);
+        var repliedData = event.target.parentElement.getAttribute('data')
+        if (repliedData === "true") repliedData=false;
+        if (repliedData === "false") repliedData=true
+        update(reference(db, 'portfolio/contact_mails/' + repliedItem.contactKey), {
+            replied : repliedData
+        }).catch((error) => {
+            console.log(error);
+            setLoader(false);
+            toast.error("Unable to replied 😒");
+        }).then(() => {
+            if (event.target.innerHTML === "Not-Replied"){
+                event.target.innerHTML = "Replied"
+                event.target.parentElement.setAttribute('data', true.toString())
+            }
+            else{
+                event.target.innerHTML="Not-Replied"
+                event.target.parentElement.setAttribute('data', false.toString())
+            }
+            setLoader(false);
+            toast.success(`You have ${event.target.innerHTML} this User ! 😎`);
+        })
+    }
+
     const fetchData = () => {
         setLoader(true)
-        const serviceRef = reference(db, 'portfolio/contact_mails/')
-        onValue(serviceRef, (snapshot) => {
+        const contactRef = reference(db, 'portfolio/contact_mails/')
+        onValue(contactRef, (snapshot) => {
             console.log(snapshot);
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
@@ -140,11 +175,11 @@ const AdminContact = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td data-title='service_title'>Data</td>
-                                        <td data-title='service_title'>Data</td>
-                                        <td data-title='service_title'>Data</td>
-                                        <td data-title='service_title'>Data</td>
-                                        <td data-title='service_title'>Data</td>
+                                        <td>Data</td>
+                                        <td>Data</td>
+                                        <td>Data</td>
+                                        <td>Data</td>
+                                        <td>Data</td>
                                         <td className='replied' data="true" >
                                             <button className='button'>Replied</button>
                                         </td>
@@ -155,16 +190,16 @@ const AdminContact = () => {
                                     {contactList.map((contact, index) => {
                                         return (
                                     <tr key={index}>
-                                        <td data-title='service_title'>{contact.name}</td>
-                                        <td data-title='service_title'>{contact.email}</td>
-                                        <td data-title='service_title'>{contact.subject}</td>
-                                        <td data-title='service_title'>{contact.message}</td>
-                                        <td data-title='service_title'>{contact.created}</td>
-                                        <td className='replied' data={contact.replied} >
-                                            <button className='button'>Replied</button>
+                                        <td className='table_column_item'>{contact.name}</td>
+                                        <td className='table_column_item'>{contact.email}</td>
+                                        <td className='table_column_item'>{contact.subject}</td>
+                                        <td className='table_column_item'>{contact.message}</td>
+                                        <td className='table_column_item'>{contact.created}</td>
+                                        <td className='table_column_item replied' data={contact.replied.toString()} >
+                                            <button className='button' onClick={(e) => handleReplied(e, contact)}>{contact.replied ? "Replied": "Not-Replied"}</button>
                                         </td>
-                                        <td className='delete'>
-                                            <button className='button'>Delete</button>
+                                        <td className='table_column_item delete'>
+                                            <button className='button' onClick={() => handleDeletePopup(contact)}>Delete</button>
                                         </td>
                                     </tr>
                                      )
@@ -173,13 +208,22 @@ const AdminContact = () => {
                             {/* table footer */}
                                 <tfoot>
                                     <tr>
-                                    <th colSpan='7'>Year: 2021</th>
+                                    <th colSpan='7'>Date: {new Date().getDate() + "-" + (new Date().getMonth()+1) + "-" + new Date().getFullYear()}</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
+                <DeleteContact
+                loader = {loader}
+                delPopup = {delPopup} 
+                setDelPopup = {setDelPopup}
+                currentDelItem = {currentDelItem}
+                setLoader = {setLoader}
+                contactList = {contactList}
+                setContactList = {setContactList}
+            />
             </div>
         </div>
     </>
