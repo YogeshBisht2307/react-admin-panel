@@ -3,10 +3,9 @@ import React, { useState } from 'react'
 import DeleteService from './DeleteService';
 import EditService from './EditService';
 
-const DisplayTable = ({loader, setLoader, serviceData, setServiceData}) => {
+const DisplayServices = ({loader, setLoader, serviceData, setServiceData}) => {
     const initialEditItemState = {
         'serviceKey':"",
-        'serviceImageUrl':"",
         'serviceTitle':"", 
         'serviceDetail':"",
         'serviceImageFont': "",
@@ -34,23 +33,20 @@ const DisplayTable = ({loader, setLoader, serviceData, setServiceData}) => {
                     <th>Title</th>
                     <th>Detail</th>
                     <th>Image Font</th>
-                    <th>Image Url</th>
                     <th colSpan="2">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    {/* first row */}
                     {serviceData.map((service, index) => {
                         return (
                             <tr key={index}>
-                                <td data-title='service_title'>{service.serviceTitle}</td>
-                                <td data-title='service_detail'>{service.serviceDetail}</td>
-                                <td data-title='service_image_font'>{service.serviceImageFont}</td>
-                                <td data-title='service_image_url'>{service.serviceImageUrl}</td>
-                                <td className='edit'>
+                                <td className='table_column_item'>{service.serviceTitle}</td>
+                                <td className='table_column_item'>{service.serviceDetail}</td>
+                                <td className='table_column_item'>{service.serviceImageFont}</td>
+                                <td className='table_column_item edit'>
                                     <button className='button' onClick={()=> handleEditPopup(service)}>Edit</button>
                                 </td>
-                                <td className='delete'>
+                                <td className='table_column_item delete'>
                                     <button className='button' onClick={() => handleDeletePopup(service)}>Delete</button>
                                 </td>
                             </tr>
@@ -60,21 +56,20 @@ const DisplayTable = ({loader, setLoader, serviceData, setServiceData}) => {
             {/* table footer */}
                 <tfoot>
                     <tr>
-                    <th colSpan='5'>Year: 2021</th>
+                    <th colSpan='5'>Date: {new Date().getDate() + "-" + (new Date().getMonth()+1) + "-" + new Date().getFullYear()}</th>
                     </tr>
                 </tfoot>
             </table>
-            {/* delete window */}
-            
+
            <DeleteService
                 loader = {loader}
                 delPopup = {delPopup} 
                 setDelPopup = {setDelPopup}
                 currentDelItem = {currentDelItem}
                 setLoader = {setLoader}
-                serviceData = {serviceData}
                 setServiceData = {setServiceData}
             />
+            
             <EditService
                 loader = {loader}
                 editPopup = {editPopup}
@@ -82,11 +77,10 @@ const DisplayTable = ({loader, setLoader, serviceData, setServiceData}) => {
                 currentEditItem = {currentEditItem}
                 setCurrentEditItem = {setCurrentEditItem}
                 setLoader = {setLoader}
-                serviceData = {serviceData}
                 setServiceData = {setServiceData}
             />
         </div>
     )
 }
 
-export default DisplayTable;
+export default DisplayServices;

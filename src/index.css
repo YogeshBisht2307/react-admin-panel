@@ -12,6 +12,7 @@
 body{
 	background: #f5f6fa;
 }
+
 .wrapper .section .container{
 	box-shadow: 10px 4px 86px 2px rgba(83,83,167,0.15);
 	-webkit-box-shadow: 10px 4px 86px 2px rgba(83,83,167,0.15);

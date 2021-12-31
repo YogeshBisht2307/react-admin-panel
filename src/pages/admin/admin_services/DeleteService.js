@@ -5,37 +5,36 @@ import { db } from '../../../firebase.config';
 
 import {toast } from 'react-toastify';
 
-const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, serviceData, setServiceData}) => {
+const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setServiceData}) => {
     const handleSoftDelete = () => {
         setLoader(true);
+        setServiceData([]);
         update(reference(db, 'portfolio/services/' + currentDelItem.serviceKey), {
             deleted : true
-        }).catch((error) => {
-            console.log(error);
+        }).catch(() => {
             setLoader(false);
             toast.error("Unable to delete, try again later 😒");
         }).then(() => {
-            setServiceData(serviceData.filter(item => item.serviceKey !== currentDelItem.serviceKey));
-            toast.success("Service deleted 😎");
-            setLoader(false);
             setDelPopup(!delPopup);
+            setLoader(false);
+            toast.success("Service deleted 😎");
+            
         })
     }
 
     const handlePermanentDelete = () => {
+        setLoader(true);
+        setServiceData([]);
         let useRefer = reference(db, 'portfolio/services/' + currentDelItem.serviceKey)
-        remove(useRefer).catch((error) => {
-            console.log(error);
-            toast.error("unable to make permanent delete!");
+        remove(useRefer).catch(() => {
             setLoader(false);
             setDelPopup(!delPopup);
+            toast.error("unable to make permanent delete!");
 
         }).then(() => {
-            setLoader(false);
-            setServiceData(serviceData.filter(item => item.serviceKey !== currentDelItem.serviceKey));
-            toast.success("Service deleted 😎");
             setDelPopup(!delPopup);
-
+            setLoader(false);
+            toast.success("Service deleted 😎");
         })
     }
     return (
@@ -54,8 +53,8 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, servic
                 
                 <div className="clearfix">
                     <button className="btn1" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
-                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete <i className="fa fa-trash"></i
-                    ></button>
+                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete 
+                    <i className="fa fa-trash"></i></button>
                 </div>
             </div>
         </div>
