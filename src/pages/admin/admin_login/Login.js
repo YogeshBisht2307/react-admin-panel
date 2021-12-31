@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth';
 import {app, authentication} from '../../../firebase.config';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import ScreenLoader from '../../../components/utility/Loader';
 
@@ -73,8 +73,6 @@ const AdminLogin = () => {
         )
     }
     return (
-        <>
-            <ToastContainer />
             <section className="login-section">
                 <div className="login-form">
                     <div className="login-form-panel">
@@ -102,7 +100,6 @@ const AdminLogin = () => {
                     </div>
                 </div>
             </section>
-        </>
     );
 };
 

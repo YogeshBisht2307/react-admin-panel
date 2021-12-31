@@ -3,12 +3,12 @@ import React,{ useState, useEffect } from 'react'
 import { ref as reference, onValue, update } from "firebase/database";
 import { db } from '../../../firebase.config';
 import ScreenLoader from '../../../components/utility/Loader';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import './contact.css';
 
 import DeleteContact from './DeleteContact';
 
-const AdminContact = () => {
+const AdminContact = React.memo(() => {
     const [contactList, setContactList] = useState([]);
     const [loader, setLoader] = useState(false);
     const [currentDelItem, setCurrentDelItem] = useState({});
@@ -89,8 +89,9 @@ const AdminContact = () => {
     }
 
     const handleReplied = (event, repliedItem) => {
+        setContactList([]);
         setLoader(true);
-        var repliedData = event.target.parentElement.getAttribute('data')
+        let repliedData = event.target.parentElement.getAttribute('data')
         if (repliedData === "true") repliedData=false;
         if (repliedData === "false") repliedData=true
         update(reference(db, 'portfolio/contact_mails/' + repliedItem.contactKey), {
@@ -100,16 +101,8 @@ const AdminContact = () => {
             setLoader(false);
             toast.error("Unable to replied 😒");
         }).then(() => {
-            if (event.target.innerHTML === "Not-Replied"){
-                event.target.innerHTML = "Replied"
-                event.target.parentElement.setAttribute('data', true.toString())
-            }
-            else{
-                event.target.innerHTML="Not-Replied"
-                event.target.parentElement.setAttribute('data', false.toString())
-            }
-            setLoader(false);
             toast.success(`You have ${event.target.innerHTML} this User ! 😎`);
+            setLoader(false);
         })
     }
 
@@ -117,10 +110,8 @@ const AdminContact = () => {
         setLoader(true)
         const contactRef = reference(db, 'portfolio/contact_mails/')
         onValue(contactRef, (snapshot) => {
-            console.log(snapshot);
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
-                console.log(data)
                 if (data.deleted === false){
                     setContactList(arr => 
                         [...arr, {
@@ -150,8 +141,6 @@ const AdminContact = () => {
         )
     }
     return (
-        <>
-        <ToastContainer/>
         <div className="container">
         {/* adding element */}
             <div className="main">
@@ -226,8 +215,7 @@ const AdminContact = () => {
             />
             </div>
         </div>
-    </>
     )
-}
+})
 
 export default AdminContact;
