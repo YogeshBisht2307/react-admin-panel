@@ -26,7 +26,7 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/admin/project'>
+                    <Link to='/admin/projects'>
                         <span className="icon"><i className="fa fa-newspaper-o"></i></span>
                         <span className="item">Projects</span>
                     </Link>
@@ -38,7 +38,7 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/admin/techstack'>
+                    <Link to='/admin/techstacks'>
                         <span className="icon"><i className="fa fa-database"></i></span>
                         <span className="item">TechStack</span>
                     </Link>
