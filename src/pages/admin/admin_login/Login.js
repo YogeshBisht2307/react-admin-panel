@@ -5,7 +5,6 @@ import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth'
 import {app, authentication} from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 import ScreenLoader from '../../../components/utility/Loader';
 
@@ -46,26 +45,26 @@ const AdminLogin = () => {
     }
 
     const resetPassoword = (event) => {
-    event.preventDefault();
-    setLoader(true);
-    sendPasswordResetEmail(authentication,email)
-    .then(() => {
-        setLoader(false);
-        toast.success('Password Reset Email has send! 😊');
-    })
-    .catch((error) => {
-        setLoader(false);
-        console.log(error.code);
-        if(error.code === 'auth/missing-email'){
-            toast.error('Email is required! 😒');
-        }
-        if(error.code === 'auth/user-not-found'){
-            toast.error('Please check the Email! 😵‍💫');
-        }
-        if(error.code === 'auth/timeout'){
-            toast.error('Request timeout ! try again later');
-        }
-    })
+        event.preventDefault();
+        setLoader(true);
+        sendPasswordResetEmail(authentication,email)
+        .then(() => {
+            setLoader(false);
+            toast.success('Password Reset Email has send! 😊');
+        })
+        .catch((error) => {
+            setLoader(false);
+            console.log(error.code);
+            if(error.code === 'auth/missing-email'){
+                toast.error('Email is required! 😒');
+            }
+            if(error.code === 'auth/user-not-found'){
+                toast.error('Please check the Email! 😵‍💫');
+            }
+            if(error.code === 'auth/timeout'){
+                toast.error('Request timeout ! try again later');
+            }
+        })
     }
 
     if(loader){
