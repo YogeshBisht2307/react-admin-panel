@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
-import { ref as reference, push } from "firebase/database";
+import { ref as reference, push, onValue } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage,db } from '../../../firebase.config';
 
 import ScreenLoader from '../../../components/utility/Loader';
 
 import { toast } from 'react-toastify';
-
-import '../admin.css';
+import DisplayTechStack from './DisplayTechStack';
+import './techStack.css';
 
 const TechStack = () => {
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
@@ -20,9 +20,55 @@ const TechStack = () => {
     
     const refhook = React.useRef();
 
+    const validatetechStackData = () => {
+        if (techStackTitle === ""){
+            toast.error("Invalid Tech Stack Title !");
+            return false;
+        }
+        if (techStackCategory === ""){
+            toast.error("Invalid Tech Stack Category !");
+            return false;
+        }
+        if (techStackImage === ""){
+            toast.error("Invalid Tech Stack Image !");
+            return false;
+        }
+
+        return true;
+    }
+
+    const fetchData = async() => {
+        setLoader(true);
+        setTechStackData([]);
+
+        const techStackRef = reference(db, 'portfolio/tech_stacks/');
+        onValue(techStackRef, (snapshot) => {
+            snapshot.forEach(function (childSnapshot) {
+                let data = childSnapshot.val();
+                if (data.deleted === false){
+                    setTechStackData(arr => 
+                        [...arr, {
+                            tech_stackKey: childSnapshot.key,
+                            tech_stackId : data.tech_stackId,
+                            tech_stackTitle: data.tech_stackTitle,
+                            tech_stackCategory: data.tech_stackCategory,
+                            tech_stackImageUrl: data.tech_stackImageUrl,
+                            deleted : data.deleted
+                        }]
+                    )
+                }
+            });
+            setLoader(false);
+        });
+    }
+
     const submitData = async(e) => {
         e.preventDefault();
+        if ( validatetechStackData() === false ){
+            return;
+        }
 
+        setTechStackData([]);
         setLoader(!loader);
 
         const storageRef = ref(storage, 'images/tech_stacks/' + techStackImage.name);
@@ -60,9 +106,15 @@ const TechStack = () => {
                 setLoader(false);
                 setAddRowCollapsible(!addRowCollapsible);
                 toast.success("Hurray !!! tech_stack added successfully !");
+
             })
         })
     }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
 
     if (loader){
         return (
@@ -82,7 +134,7 @@ const TechStack = () => {
                         () => setAddRowCollapsible(!addRowCollapsible)
                         } 
                     >
-                        Add Service
+                        Add TechStack
                     </button>
                 </div>
                 <div className="content" 
@@ -97,7 +149,7 @@ const TechStack = () => {
                                 <h2>Add Tech Stack</h2>
                             </div>
                             <div className="row">
-                            {/* Add services form starts here */}
+                            {/* Add tech stack form starts here */}
                                 <form onSubmit={submitData}>
                                     <div className="form-row">
                                         <div className="input_field"> 
@@ -135,15 +187,23 @@ const TechStack = () => {
                                         </div>
                                     </div>
                                     <div className="form-row">
-                                        <input className="button" type="submit" value="Add Service" />
+                                        <input className="button" type="submit" value="Add TechStack" />
                                     </div>
                                 </form>
-                                {/* Add services form ends here */}
+                                {/* Add tech stack form ends here */}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <DisplayTechStack
+                loader ={loader}
+                setLoader = {setLoader}
+                techStackData={techStackData} 
+                setTechStackData={setTechStackData} 
+            />
+
         </div>
     </div> 
     )
