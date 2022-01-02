@@ -11,6 +11,7 @@ import AdminProjects from "./pages/admin/admin_projects/Projects";
 import NoRoutePage from "./components/utility/404";
 import './pages/admin/admin.css';
 import TechStack from "./pages/admin/admin_tech_stack/TechStack";
+import AdminTopSkills from "./pages/admin/admin_top_skills/TopSkills";
 
 const Home = () => <h1>Home (Public)</h1>;
 
@@ -54,11 +55,21 @@ const App = () => {
           }
         />
         <Route
-          path="admin/techstack"
+          path="admin/techstacks"
           element={
             <RequireAuth>
               <DashboardLayout>
                 <TechStack/>
+              </DashboardLayout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="admin/topskills"
+          element={
+            <RequireAuth>
+              <DashboardLayout>
+                <AdminTopSkills/>
               </DashboardLayout>
             </RequireAuth>
           }
