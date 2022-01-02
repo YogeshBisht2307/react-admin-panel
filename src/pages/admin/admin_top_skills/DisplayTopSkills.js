@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import DeleteTopSkill from './DeleteTopSkill';
 import EditTopSkill from './EditTopSkills';
 
 const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) => {
@@ -65,6 +66,15 @@ const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) 
                 setEditPopup = {setEditPopup}
                 currentEditItem = {currentEditItem}
                 setCurrentEditItem = {setCurrentEditItem}
+                setLoader = {setLoader}
+                setTopSkillsData = {setTopSkillsData}
+            />
+
+             <DeleteTopSkill
+                loader = {loader}
+                delPopup = {delPopup} 
+                setDelPopup = {setDelPopup}
+                currentDelItem = {currentDelItem}
                 setLoader = {setLoader}
                 setTopSkillsData = {setTopSkillsData}
             />
