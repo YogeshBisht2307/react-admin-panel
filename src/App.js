@@ -51,6 +51,7 @@ const App = () => {
                 <AdminProjects />
               </DashboardLayout>
             </RequireAuth>
+          }
         />
         <Route
           path="admin/techstack"
