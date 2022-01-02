@@ -13,6 +13,7 @@ const AdminTopSkills = () => {
     const initialState = {
         'top_skillTitle': "",
         'top_skillPoint': "",
+        'top_skillBgColor': "",
     }
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
     const [loader, setLoader] = useState(false);
@@ -34,6 +35,7 @@ const AdminTopSkills = () => {
                             top_skillId : data.top_skillsId,
                             top_skillTitle: data.top_skillTitle,
                             top_skillPoint: data.top_skillPoint,
+                            top_skillBgColor: data.top_skillBgColor
                         }]
                     )
                 }
@@ -43,7 +45,6 @@ const AdminTopSkills = () => {
     }
 
     const validateData = (dataItem) => {
-        console.log(isNaN(dataItem.top_skillPoint))
         if (dataItem.top_skillTitle.trim() === ""){
             toast.error("Invalid top_skills Title !");
             return false;
@@ -52,8 +53,17 @@ const AdminTopSkills = () => {
             toast.error("Invalid top_skills Point !");
             return false;
         }
-        if(isNaN(dataItem.top_skillPoint) === true){
+        if (dataItem.top_skillBgColor.trim() === ""){
+            toast.error("Inavalid Background color !")
+            return false
+        }
+
+        if (isNaN(dataItem.top_skillPoint) === true){
             toast.error("Top Skill Point is Not a Number !");
+            return false;
+        }
+        if (Number(dataItem.top_skillPoint) > 10 ){
+            toast.error("Top Skill Point Can't be greater then 10 !");
             return false;
         }
 
@@ -72,6 +82,7 @@ const AdminTopSkills = () => {
             top_skillId : `top_skill-${Date.now()}`,
             top_skillTitle: topSkillDataItem.top_skillTitle,
             top_skillPoint: topSkillDataItem.top_skillPoint,
+            top_skillBgColor: topSkillDataItem.top_skillBgColor,
             deleted : false,
         }).catch(() => {
             setLoader(false);
@@ -148,6 +159,22 @@ const AdminTopSkills = () => {
                                                         (e) => setTopSkillDataItem({
                                                             ...topSkillDataItem,
                                                             top_skillPoint: e.target.value
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="form-row">
+                                            <div className="input_field"> 
+                                                <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                                <input type="text" 
+                                                    name="bg_color" 
+                                                    placeholder="Background Color (RGB format)" 
+                                                    value={topSkillDataItem.top_skillBgColor} 
+                                                    onChange={
+                                                        (e)=> setTopSkillDataItem({
+                                                            ...topSkillDataItem,
+                                                            top_skillBgColor: e.target.value
                                                         })
                                                     }
                                                 />

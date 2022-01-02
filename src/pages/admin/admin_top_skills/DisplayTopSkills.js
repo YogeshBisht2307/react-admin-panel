@@ -1,10 +1,12 @@
 import React, {useState} from 'react'
+import EditTopSkill from './EditTopSkills';
 
 const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) => {
     const initialEditItemState = {
         'top_skillKey':"",
         'top_skillTitle':"", 
         'top_skillPoint':"",
+        'top_skillBgColor': "",
         'top_skillId':""
     }
     const [currentEditItem, setCurrentEditItem] = useState(initialEditItemState);
@@ -28,6 +30,7 @@ const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) 
                 <tr>
                     <th>Title</th>
                     <th>Point (Out of 10)</th>
+                    <th>Background Color</th>
                     <th colSpan="2">Action</th>
                 </tr>
                 </thead>
@@ -37,6 +40,7 @@ const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) 
                             <tr key={index}>
                                 <td className='table_column_item'>{top_skill.top_skillTitle}</td>
                                 <td className='table_column_item'>{top_skill.top_skillPoint}</td>
+                                <td className='table_column_item'>{top_skill.top_skillBgColor}</td>
                                 <td className='table_column_item edit'>
                                     <button className='button' onClick={()=> handleEditPopup(top_skill)}>Edit</button>
                                 </td>
@@ -54,6 +58,16 @@ const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) 
                     </tr>
                 </tfoot>
             </table>
+
+            <EditTopSkill
+                loader = {loader}
+                editPopup = {editPopup}
+                setEditPopup = {setEditPopup}
+                currentEditItem = {currentEditItem}
+                setCurrentEditItem = {setCurrentEditItem}
+                setLoader = {setLoader}
+                setTopSkillsData = {setTopSkillsData}
+            />
         </div>
     )
 }
