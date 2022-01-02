@@ -52,8 +52,8 @@ const DeleteTopSkill = ({delPopup, setDelPopup, currentDelItem, setLoader, setTo
                 </div>
                 
                 <div className="clearfix">
-                    <button className="btn1" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
-                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete  
+                    <button className="btn" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
+                    <button className="btn" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete  
                     <i className="fa fa-trash"></i></button>
                 </div>
             </div>

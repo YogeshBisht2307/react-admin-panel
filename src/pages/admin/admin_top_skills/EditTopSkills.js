@@ -15,11 +15,6 @@ const EditTopSkill = ({editPopup, setEditPopup, currentEditItem, setCurrentEditI
             toast.error("Invalid top_skills Point !");
             return false;
         }
-        if (dataItem.top_skillBgColor.trim() === ""){
-            toast.error("Inavalid Background color !")
-            return false
-        }
-
         if (isNaN(dataItem.top_skillPoint) === true){
             toast.error("Top Skill Point is Not a Number !");
             return false;
@@ -27,6 +22,10 @@ const EditTopSkill = ({editPopup, setEditPopup, currentEditItem, setCurrentEditI
         if (Number(dataItem.top_skillPoint) > 10 ){
             toast.error("Top Skill Point Can't be greater then 10 !");
             return false;
+        }
+        if (dataItem.top_skillBgColor.trim() === ""){
+            toast.error("Inavalid Background color !")
+            return false
         }
 
         return true;
