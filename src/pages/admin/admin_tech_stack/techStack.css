@@ -1,0 +1,9 @@
+.content-table .edit-content.tech_stack{
+    height: 40vh;
+  }
+  @media(max-width:768px){
+    .content-table .edit-content.tech_stack{
+        height: 60vh;
+        width: 90vw;
+      }
+  }
