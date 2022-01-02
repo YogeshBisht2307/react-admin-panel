@@ -291,14 +291,14 @@
     text-transform: uppercase;
     cursor: pointer;
   }
-  .delete_container .clearfix .btn1 {
+  .delete_container .clearfix #softdelete {
     margin-right: 5px;
     margin-bottom: 10px;
     background-color: black;
     
   }
   
-  .delete_container .clearfix .btn2 {
+  .delete_container .clearfix #permanent_delete {
     margin-bottom: 10px;
     background-color: red;
   }
