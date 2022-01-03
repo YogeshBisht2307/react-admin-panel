@@ -1,15 +1,19 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import AdminImage from '../images/admin.JPG';
+import { getCookie } from '../utility/cookies';
 
 import './navbar.css';
 
 const SideNavbar = () => {
+    let user_name=getCookie('user_name');
+    let photoURL=getCookie('photo_url');
+
     return (
         <div className="sidebar">
             <div className="profile">
-                <img src={AdminImage} style={{border:"2px solid white"}} alt="profile_picture"/>
-                <h3>Yogesh Bisht</h3>
+                <img src={photoURL !== "" ? photoURL : AdminImage} style={{border:"2px solid white"}} alt="Yogesh Bisht"/>
+                <h3>{user_name !=="" ? user_name : "Unknown"}</h3>
                 <p>Full Stack Developer</p>
             </div>
             <ul>

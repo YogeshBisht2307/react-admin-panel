@@ -5,6 +5,7 @@ import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth'
 import {app, authentication} from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
+import { setCookie } from '../../../components/utility/cookies';
 
 import ScreenLoader from '../../../components/utility/Loader';
 
@@ -23,7 +24,9 @@ const AdminLogin = () => {
 
         signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
-            sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+            setCookie('auth_token', response._tokenResponse.refreshToken);
+            setCookie('user_name', response.user.displayName);
+            setCookie('photo_url', response.user.photoURL);
             setLoader(false);
             navigate("/admin/dashboard");
             //   navigate(state?.path || "/dashboard");
