@@ -1,0 +1,17 @@
+.progress_chart{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    width:95%;
+    margin:auto;
+}
+.progress_chart_container .heading{
+    margin-left:1rem;
+	margin-bottom: 1rem;
+
+}
+@media(max-width:950px){
+    .progress_chart{
+        width:100%;
+    }
+}

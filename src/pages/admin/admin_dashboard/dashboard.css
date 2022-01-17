@@ -111,11 +111,23 @@
 	font-weight: 600;
 }
 
+@media(max-width:1025px){
+	.dashboard-columns{
+		width:45%;
+	}
+}
+
 @media(max-width:768px){
     .wrapper .section .container{
         margin:5px;
         padding:10px;
     }
+	.dashboard-container{
+		flex-direction: column;
+	}
+	.dashboard-columns{
+		width: 90%;
+	}
 	.wrapper .sidebar{
 		width: 200px;
 	}

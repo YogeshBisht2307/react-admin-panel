@@ -1,5 +1,5 @@
 import React from 'react'
-
+import ProgressChart from './ProgressChart';
 import './dashboard.css';
 
 const DashboardData = [
@@ -43,6 +43,7 @@ const DashboardData = [
 
 const AdminDashboard = () => {
     return (
+        <>
         <div className="container">
             <div className="dashboard-home-page">
                 <div className="dashboard-header">
@@ -70,6 +71,10 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
+        <div className="container">
+        <ProgressChart/>
+        </div>
+        </>
     )
 }
 
