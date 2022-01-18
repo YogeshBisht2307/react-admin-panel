@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import EditTechStack from './EditTechStack';
 import DeleteTechStack from './DeleteTechStack';
 
-const DisplayTechStack = ({loader, setLoader, techStackData, setTechStackData}) => {
+const DisplayTechStack = ({ loader, setLoader, techStackData, setTechStackData }) => {
     const initialEditItemState = {
         'tech_stackKey': "",
         'tech_stackId' : "",
@@ -10,7 +10,7 @@ const DisplayTechStack = ({loader, setLoader, techStackData, setTechStackData}) 
         'tech_stackCategory':"",
         'tech_stackImageUrl' : "",
         'deleted' : false,
-    }
+    };
     const [currentEditItem, setCurrentEditItem] = useState(initialEditItemState);
     const [editPopup, setEditPopup] = useState(false);
     const [currentDelItem, setCurrentDelItem] = useState({});

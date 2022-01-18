@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React,{ useState, useEffect } from 'react';
 
 import { ref as reference, push, onValue } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -19,7 +19,7 @@ const AdminProjects = () => {
         'projectTechTitle' : "",
         'projectImageUrl' : "",
         'deleted' : false,
-    }
+    };
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
     const [loader, setLoader] = useState(false);
     const [projectData, setProjectData] = useState(projectDataInitialState)
@@ -57,7 +57,7 @@ const AdminProjects = () => {
         return true;
     }
     
-    const fetchData = async() => {
+    const fetchData = () => {
         setLoader(true);
         
         const projectRef = reference(db, 'portfolio/projects');
@@ -83,7 +83,7 @@ const AdminProjects = () => {
         });
     }
 
-    const submitData = async(e) => {
+    const submitData = (e) => {
         e.preventDefault();
         if ( validateProjectData(projectData, projectImage) === false ){
             return;
@@ -123,7 +123,7 @@ const AdminProjects = () => {
                 toast.error("Error occured during project data uploading!...");
             })
             .then(() =>{
-                setProjectData(projectDataInitialState)
+                setProjectData(projectDataInitialState);
                 setProjectImage("");
                 setLoader(false);
                 setAddRowCollapsible(!addRowCollapsible);

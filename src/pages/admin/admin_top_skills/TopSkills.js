@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React,{ useState, useEffect } from 'react';
 
 import { ref as reference, push, onValue } from "firebase/database";
 import { db } from '../../../firebase.config';
@@ -14,7 +14,7 @@ const AdminTopSkills = () => {
         'top_skillTitle': "",
         'top_skillPoint': "",
         'top_skillBgColor': "",
-    }
+    };
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
     const [loader, setLoader] = useState(false);
     const [topSkillDataItem, setTopSkillDataItem] = useState(initialState);
@@ -69,7 +69,7 @@ const AdminTopSkills = () => {
         return true;
     }
 
-    const submitData = async(e) => {
+    const submitData = (e) => {
         e.preventDefault();
         if (validateData(topSkillDataItem) === false){
             return;
@@ -104,6 +104,7 @@ const AdminTopSkills = () => {
             <ScreenLoader/>
         )
     }
+
     return (
         <div className="container">
             <div className="main">

@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 import { ref as reference, update, remove } from "firebase/database";
 import { db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const DeleteTechStack = ({delPopup, setDelPopup, currentDelItem, setLoader, setTechStackData}) => {
     const handleSoftDelete = () => {
@@ -37,6 +37,7 @@ const DeleteTechStack = ({delPopup, setDelPopup, currentDelItem, setLoader, setT
             setDelPopup(!delPopup);
         })
     }
+
     return (
         <div className="delete_container" style={{display : delPopup ? "flex" : "none"}}>
             <div className="box">

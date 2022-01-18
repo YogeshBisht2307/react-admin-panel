@@ -1,22 +1,22 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import DeleteTopSkill from './DeleteTopSkill';
 import EditTopSkill from './EditTopSkills';
 
-const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) => {
+const DisplayTopSkills = ({ loader, setLoader, topSkillsData, setTopSkillsData }) => {
     const initialEditItemState = {
         'top_skillKey':"",
         'top_skillTitle':"", 
         'top_skillPoint':"",
         'top_skillBgColor': "",
         'top_skillId':""
-    }
+    };
     const [currentEditItem, setCurrentEditItem] = useState(initialEditItemState);
-    const [editPopup, setEditPopup] = useState(false)
+    const [editPopup, setEditPopup] = useState(false);
     const [currentDelItem, setCurrentDelItem] = useState({});
     const [delPopup, setDelPopup] = useState(false);
 
     const handleDeletePopup = (top_skill) => {
-        setDelPopup(!delPopup)
+        setDelPopup(!delPopup);
         setCurrentDelItem(top_skill);
     }
 
@@ -24,6 +24,7 @@ const DisplayTopSkills = ({loader, setLoader, topSkillsData, setTopSkillsData}) 
         setEditPopup(!editPopup);
         setCurrentEditItem(top_skill);
     }
+
     return (
         <div className="content-table" style={{overflowX : 'auto'}}>
             <table>

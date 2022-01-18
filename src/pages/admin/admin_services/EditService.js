@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 import { ref as reference, update } from "firebase/database";
 import { db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const EditService = ({editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader, setServiceData }) => {
     const handleServiceEditFormSubmit = async(event)=>{
@@ -26,6 +26,7 @@ const EditService = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
             toast.error("Unable to update, try again later 😒");
         });
     }
+
     return (
         <div className="edit-content services" style={{display:editPopup ? "flex" : "none"}}>
             <div onClick={()=>setEditPopup(!editPopup)} className="cross">

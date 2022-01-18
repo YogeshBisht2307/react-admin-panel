@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 import { ref as reference, update, remove } from "firebase/database";
 import { db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-const DeleteTopSkill = ({delPopup, setDelPopup, currentDelItem, setLoader, setTopSkillsData}) => {
+const DeleteTopSkill = ({ delPopup, setDelPopup, currentDelItem, setLoader, setTopSkillsData }) => {
     const handleSoftDelete = () => {
         setLoader(true);
         setTopSkillsData([]);
@@ -25,7 +25,7 @@ const DeleteTopSkill = ({delPopup, setDelPopup, currentDelItem, setLoader, setTo
     const handlePermanentDelete = () => {
         setLoader(true);
         setTopSkillsData([]);
-        let useRefer = reference(db, 'portfolio/top_skills/' + currentDelItem.top_skillKey)
+        let useRefer = reference(db, 'portfolio/top_skills/' + currentDelItem.top_skillKey);
         remove(useRefer).catch(() => {
             setLoader(false);
             setDelPopup(!delPopup);
@@ -37,6 +37,7 @@ const DeleteTopSkill = ({delPopup, setDelPopup, currentDelItem, setLoader, setTo
             toast.success("Top Skill deleted 😎");
         })
     }
+
     return (
         <div className="delete_container" style={{display : delPopup ? "flex" : "none"}}>
             <div className="box">

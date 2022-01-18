@@ -111,10 +111,26 @@
 	font-weight: 600;
 }
 
+.progress_chart{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    width:95%;
+    margin:auto;
+}
+.progress_chart_container .heading{
+    margin-left:1rem;
+	margin-bottom: 1rem;
+
+}
+
 @media(max-width:1025px){
 	.dashboard-columns{
 		width:45%;
 	}
+	.progress_chart{
+        width:100%;
+    }
 }
 
 @media(max-width:768px){

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth';
 import {app, authentication} from '../../../firebase.config';
@@ -33,7 +33,7 @@ const AdminLogin = () => {
             toast.success("Welcome back! 😎");   
         })
         .catch((error) => {
-            console.log(error.code)
+            console.log(error.code);
             setLoader(false);
             if (error.code === 'auth/wrong-password') {
                 toast.error('Please check the Password! 😏');

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 import { ref as reference, update } from "firebase/database";
 import { db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-const EditTopSkill = ({editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader, setTopSkillsData }) => {
+const EditTopSkill = ({ editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader, setTopSkillsData }) => {
     const validateData = (dataItem) => {
         if (dataItem.top_skillTitle.trim() === ""){
             toast.error("Invalid top_skills Title !");
@@ -30,7 +30,8 @@ const EditTopSkill = ({editPopup, setEditPopup, currentEditItem, setCurrentEditI
 
         return true;
     }
-    const handleEditFormSubmit = async(event)=>{
+
+    const handleEditFormSubmit = (event)=>{
         event.preventDefault();
         if (validateData(currentEditItem) === false){
             return;
@@ -53,6 +54,7 @@ const EditTopSkill = ({editPopup, setEditPopup, currentEditItem, setCurrentEditI
             toast.error("Unable to update, try again later 😒");
         });
     }
+
     return (
         <div className="edit-content top_skills" style={{display:editPopup ? "flex" : "none"}}>
             <div onClick={()=>setEditPopup(!editPopup)} className="cross">

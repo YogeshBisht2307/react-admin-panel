@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 import { ref as reference, update } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader,setProjectsData }) => {
+const EditProject = ({ editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader,setProjectsData }) => {
     const [editImage, setEditImage] = useState("");
     const refhook = React.useRef();
 
@@ -98,7 +98,6 @@ const EditProject = ({editPopup, setEditPopup, currentEditItem, setCurrentEditIt
             });
         }
     }
-    // height of projec content need to be update
     return (
         <div className="edit-content project" style={{display:editPopup ? "flex" : "none"}}>
             <div onClick={()=>setEditPopup(!editPopup)} className="cross">

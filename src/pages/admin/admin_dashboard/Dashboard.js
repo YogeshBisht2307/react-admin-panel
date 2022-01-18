@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ProgressChart from './ProgressChart';
 import './dashboard.css';
 
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
             </div>
         </div>
         <div className="container">
-        <ProgressChart/>
+            <ProgressChart/>
         </div>
         </>
     )

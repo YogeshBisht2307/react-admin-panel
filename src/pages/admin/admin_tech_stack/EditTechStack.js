@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 import { ref as reference, update } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-const EditTechStack = ({editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader,setTechStackData }) => {
+const EditTechStack = ({ editPopup, setEditPopup, currentEditItem, setCurrentEditItem, setLoader,setTechStackData }) => {
     const [editImage, setEditImage] = useState("");
     const refhook = React.useRef();
 
@@ -23,7 +23,7 @@ const EditTechStack = ({editPopup, setEditPopup, currentEditItem, setCurrentEdit
     }
 
 
-    const handletech_stackEditFormSubmit = async(event)=>{
+    const handletech_stackEditFormSubmit = (event)=>{
         event.preventDefault();
         setTechStackData([]);
         

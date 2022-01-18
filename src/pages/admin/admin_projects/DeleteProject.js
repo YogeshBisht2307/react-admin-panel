@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 import { ref as reference, update, remove } from "firebase/database";
 import { db } from '../../../firebase.config';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, setProjectsData}) => {
     const handleSoftDelete = () => {
@@ -24,7 +24,7 @@ const DeleteProject = ({delPopup, setDelPopup, currentDelItem, setLoader, setPro
 
     const handlePermanentDelete = () => {
         setProjectsData([]);
-        let useRefer = reference(db, 'portfolio/projects/' + currentDelItem.projectKey)
+        let useRefer = reference(db, 'portfolio/projects/' + currentDelItem.projectKey);
         remove(useRefer).catch((error) => {
             console.log(error);
             toast.error("unable to make permanent delete!");

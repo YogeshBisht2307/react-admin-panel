@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 
 import { ref as reference, push, onValue } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage,db } from '../../../firebase.config';
 
-import ScreenLoader from '../../../components/utility/Loader';
-
 import { toast } from 'react-toastify';
+
+import ScreenLoader from '../../../components/utility/Loader';
 import DisplayTechStack from './DisplayTechStack';
 import './techStack.css';
 
@@ -37,7 +37,7 @@ const TechStack = () => {
         return true;
     }
 
-    const fetchData = async() => {
+    const fetchData = () => {
         setLoader(true);
         setTechStackData([]);
 
@@ -62,7 +62,7 @@ const TechStack = () => {
         });
     }
 
-    const submitData = async(e) => {
+    const submitData = (e) => {
         e.preventDefault();
         if ( validatetechStackData() === false ){
             return;

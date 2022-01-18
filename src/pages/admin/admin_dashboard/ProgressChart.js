@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import {Line} from 'react-chartjs-2';
-import Chart from 'chart.js/auto'
-import "./progress_chart.css"
+import Chart from 'chart.js/auto';
 
 const ProgressChart= () => {
     var getDaysArray = function(start, end) {
@@ -9,7 +8,6 @@ const ProgressChart= () => {
         for(var dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
             arr.push(`${dt.getDate()}-${dt.getMonth()+1}-${dt.getFullYear()}`);
         }
-        console.log(arr)
         return arr;
     };
     const lineChart = (
@@ -37,7 +35,7 @@ const ProgressChart= () => {
     )
     return (
         <div className="progress_chart_container">
-            <h1 className="heading">Char Data</h1>
+            <h1 className="heading">Chart Data</h1>
             <div className="progress_chart">
                 {lineChart}
             </div>

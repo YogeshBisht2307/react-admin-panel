@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 import EditProject from './EditProject';
 import DeleteProject from './DeleteProject';
 
-const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => {
+const DisplayProjects = ({ loader, setLoader, projectsData, setProjectsData }) => {
     const initialEditItemState = {
         'projectKey': "",
         'projectTitle' : "",
@@ -13,7 +13,7 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
         'projectTechTitle' : "",
         'projectImageUrl' : "",
         'deleted' : false,
-    }
+    };
     const [currentEditItem, setCurrentEditItem] = useState(initialEditItemState);
     const [editPopup, setEditPopup] = useState(false);
     const [currentDelItem, setCurrentDelItem] = useState({});
@@ -28,6 +28,7 @@ const DisplayProjects = ({loader, setLoader, projectsData, setProjectsData}) => 
         setEditPopup(!editPopup);
         setCurrentEditItem(project);
     }
+
     return (
         <div className="content-table" style={{overflowX : 'auto'}}>
             <table>
