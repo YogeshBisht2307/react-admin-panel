@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import AdminImage from '../images/admin.JPG';
 import { getCookie } from '../utility/cookies';
@@ -6,9 +6,13 @@ import { getCookie } from '../utility/cookies';
 import './navbar.css';
 
 const SideNavbar = () => {
+    const [showDropdown, setShowDropdown] = useState(false);
     let user_name=getCookie('user_name');
     let photoURL=getCookie('photo_url');
 
+    const showDropdownHandle = ()=>{
+        setShowDropdown(!showDropdown);
+    }
     return (
         <div className="sidebar">
             <div className="profile">
@@ -48,10 +52,22 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/admin/settings'>
+                    <div className="nav-header" onClick={showDropdownHandle}>
                         <span className="icon"><i className="fa fa-cog"></i></span>
                         <span className="item">Settings</span>
-                    </Link>
+                    </div>
+                    <div className="nav-dropdown" style={{display: showDropdown ? 'block': 'None'}}>
+
+                        <Link to='/admin/updateProfile' onClick={showDropdownHandle}>
+                            <span className="icon"><i className="fa fa-user"></i></span>
+                            <span className="item">Update Profile</span>
+                        </Link>
+
+                        <Link to='/admin/updateHeroData' onClick={showDropdownHandle}>
+                            <span className="icon"><i className="fa fa-users"></i></span>
+                            <span className="item">Update Hero Data</span>
+                        </Link>
+                    </div>
                 </li>
             </ul>
         </div>
