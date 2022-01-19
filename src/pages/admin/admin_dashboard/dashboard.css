@@ -4,55 +4,12 @@
 	margin-left: 225px;
 	transition: all 0.5s ease;
 }
-
-.wrapper .section .top_navbar{
-	background: linear-gradient(to right,#4b6cb7,#182848);
-	height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 15px;
-}
-.wrapper .section .top_navbar .logout button{
-	background-color: red;
-    outline: none;
-    width: 100%;
-    border: 0;
-    border-radius: 4px;
-    padding:5px 15px;
-    color: #FFFFFF;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-.wrapper .section .top_navbar .hamburger p i{
-	font-size: 28px;
-	color: #f4fbff;
-}
-.wrapper .section .top_navbar .hamburger p span{
-	color:#f1f1f1;
-	margin-left:10px;
-}
-.wrapper .section .top_navbar .hamburger p:hover{
-	color: #a2ecff;
-}
 .wrapper .section .container{
     margin: 30px;
     background: #fff;
     padding: 50px;
     line-height: 28px;
   }
-.side-bar-navigation.active .wrapper .sidebar{
-	left: -225px;
-}
-
-.side-bar-navigation.active .wrapper .section{
-	margin-left: 0;
-	width: 100%;
-}
 .dashboard-header{
 	margin-left:1rem;
 	margin-bottom: 1rem;
@@ -68,7 +25,7 @@
 }
 .dashboard-columns{
 	width:30%;
-	height:25vh;
+	height:20vh;
 	margin:1rem 0rem;
 	background-color: black;
 }
@@ -111,25 +68,26 @@
 	font-weight: 600;
 }
 
-.progress_chart{
+.activity_chart{
+	margin-top: 20px;
     display:flex;
     justify-content: space-around;
     align-items: center;
     width:95%;
     margin:auto;
-}
-.progress_chart_container .heading{
-    margin-left:1rem;
-	margin-bottom: 1rem;
-
+	height:45vh;
 }
 
+.container .chart-data{
+	margin: 30px 0px;
+    padding: 50px 0px;
+}
 @media(max-width:1025px){
 	.dashboard-columns{
 		width:45%;
 	}
-	.progress_chart{
-        width:100%;
+	.activity_chart{
+		height: 40vh;
     }
 }
 
@@ -151,4 +109,8 @@
 		width: calc(100% - 200px);
 		margin-left: 200px;
 	}
+	.activity_chart{
+        width:100%;
+		height: 35vh;
+    }
 }
