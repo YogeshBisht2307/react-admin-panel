@@ -2,7 +2,7 @@ import React from 'react';
 import {Line} from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
-const ProgressChart= () => {
+const ActivityChart= () => {
     var getDaysArray = function(start, end) {
         var arr=[];
         for(var dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
@@ -16,31 +16,41 @@ const ProgressChart= () => {
                     labels:  getDaysArray(new Date("2022-01-01"),new Date("2022-01-6")),
                     datasets:[
                         {
-                            label: 'DataSet One',
-                            data: [65, 59, 80, 81, 56, 55],
+                            label: 'Activity Count',
+                            data: [5, 7, 3, 6, 0, 4],
                             fill: false,
                             borderColor: 'rgb(75, 192, 192)',
                             tension: 0.1
                         },
                         {
-                            label: 'DataSet Second',
-                            data: [10, 16, 40, 48, 21, 29],
+                            label: 'Visitor Count',
+                            data: [3, 1, 2, 5, 0, 7],
                             fill: false,
                             borderColor: 'rgb(192, 75, 75)',
                             tension: 0.1
                     }
                 ],
             }}
+            options = {{
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }}
         />
     )
     return (
-        <div className="progress_chart_container">
-            <h1 className="heading">Chart Data</h1>
-            <div className="progress_chart">
+        <div className="activity_chart_container">
+            <h1 className="dashboard-header">Activity Data</h1>
+            <div className="activity_chart">
                 {lineChart}
             </div>
         </div>
     )
 }
 
-export default ProgressChart;
+export default ActivityChart;
