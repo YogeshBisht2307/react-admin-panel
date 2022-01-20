@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 import { DashboardLayout } from "./components/utility/Layout";
 import RequireAuth from './components/utility/RequireAuth';
@@ -13,7 +13,7 @@ import './pages/admin/admin.css';
 import TechStack from "./pages/admin/admin_tech_stack/TechStack";
 import AdminTopSkills from "./pages/admin/admin_top_skills/TopSkills";
 
-const Home = () => <h1>Home (Public)</h1>;
+const Home = () => <h1>Home (Public) <Link to="admin/login">Admin</Link></h1>;
 
 
 const App = () => {
