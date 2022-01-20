@@ -3,7 +3,6 @@ import {Line} from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
 const ActivityChart= () => {
-    console.log(Chart);
     var getDaysArray = function(start, end) {
         var arr=[];
         for(var dt=start; dt<=end; dt.setDate(dt.getDate()+1)){

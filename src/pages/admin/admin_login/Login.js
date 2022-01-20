@@ -17,7 +17,6 @@ const AdminLogin = () => {
     const [password, setPassword] = useState();
     const [loader, setLoader] = useState(false);
 
-    console.log(app);
     const onLogin = (event) => {
 
         setLoader(true);
