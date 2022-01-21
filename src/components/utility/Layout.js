@@ -15,14 +15,12 @@ export const DashboardLayout = ({ children }) => {
   const [navCollapse, setNavCollapse] = useState(false);
   return (
     <BodyWrapper>
-        <section className={navCollapse ? "side-bar-navigation active": "side-bar-navigation"}>
-            <div className="wrapper">
-                <div className="section">
-                    <HeaderBar navCollapse={navCollapse} setNavCollapse={setNavCollapse} />
-                    {children}
-                    <SideNavbar navCollapse={navCollapse} setNavCollapse={setNavCollapse}/>
-                </div>
-            </div>
+        <section className={navCollapse ? "wrapper active": "wrapper"}>
+              <div className="section">
+                  <HeaderBar navCollapse={navCollapse} setNavCollapse={setNavCollapse} />
+                  {children}
+                  <SideNavbar navCollapse={navCollapse} setNavCollapse={setNavCollapse}/>
+              </div>
         </section>
     </BodyWrapper>
   );

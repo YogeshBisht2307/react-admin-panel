@@ -96,11 +96,23 @@
         margin:5px;
         padding:10px;
     }
+	.dashboard-header h1{
+		font-size: 16px;
+	}
+	.dashboard-header p{
+		font-size: 12px;
+	}
 	.dashboard-container{
 		flex-direction: column;
 	}
 	.dashboard-columns{
 		width: 90%;
+	}
+	.column-content i{
+		font-size:35px;
+	}
+	 .column-content .column-data{
+		font-size:18px;
 	}
 	.wrapper .sidebar{
 		width: 200px;
