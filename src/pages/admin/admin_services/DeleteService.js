@@ -54,8 +54,7 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setSer
                 
                 <div className="clearfix">
                     <button className="btn1" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
-                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete 
-                    <i className="fa fa-trash"></i></button>
+                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete </button>
                 </div>
             </div>
         </div>

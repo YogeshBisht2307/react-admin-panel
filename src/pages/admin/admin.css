@@ -323,13 +323,17 @@
     }
     .delete_container{
       left:5%;
+      top:15%;
     }
     .delete_container .box {
-      height: 65vh;
+      height: 70vh;
       width: 85vw;
     }
     .delete_container .clearfix{
       flex-direction: column;
+    }
+    .edit-content .form_wrapper input[type=submit] {
+      width: 60%;
     }
   }
   

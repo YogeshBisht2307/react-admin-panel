@@ -5,13 +5,16 @@ import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth'
 import {app, authentication} from '../../../firebase.config';
 
 import { ToastContainer, toast } from 'react-toastify';
-import { setCookie } from '../../../components/utility/cookies';
+import { setCookie,getCookie } from '../../../components/utility/cookies';
 
 import ScreenLoader from '../../../components/utility/Loader';
 
 import './login.css';
 
 const AdminLogin = () => {
+    let authToken = getCookie('auth_token')
+    authToken && navigate("/admin/dashboard");
+
     const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
