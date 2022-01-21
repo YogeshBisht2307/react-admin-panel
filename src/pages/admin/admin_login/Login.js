@@ -79,8 +79,6 @@ const AdminLogin = () => {
         )
     }
     return (
-        <>
-            <ToastContainer />
             <section className="login-section">
                 <div className="login-form">
                     <div className="login-form-panel">
@@ -108,7 +106,6 @@ const AdminLogin = () => {
                     </div>
                 </div>
             </section>
-        </>
     );
 };
 

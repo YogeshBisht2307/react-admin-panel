@@ -8,6 +8,7 @@ import AdminLogin from "./pages/admin/admin_login/Login";
 import AdminDashboard from "./pages/admin/admin_dashboard/Dashboard";
 import AdminServices from "./pages/admin/admin_services/Services";
 import AdminProjects from "./pages/admin/admin_projects/Projects";
+import AdminContact from "./pages/admin/admin_contact/Contact";
 import NoRoutePage from "./components/utility/404";
 import './pages/admin/admin.css';
 import TechStack from "./pages/admin/admin_tech_stack/TechStack";
@@ -74,7 +75,6 @@ const App = () => {
             </RequireAuth>
           }
         />
-
         <Route path="admin/login" element={<AdminLogin />} />
         <Route path="admin/" element={<AdminLogin />} />
 
