@@ -89,3 +89,13 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+@media(max-width: 768px){
+    .login-form {
+        width: 300px;
+    }
+    .login-form-panel {
+        padding: 50px 30px;
+
+    }
+}
