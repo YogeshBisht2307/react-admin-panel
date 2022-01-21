@@ -5,36 +5,36 @@ import { db } from '../../../firebase.config';
 
 import { toast } from 'react-toastify';
 
-const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setServiceData}) => {
+const DeleteTechStack = ({delPopup, setDelPopup, currentDelItem, setLoader, setTechStackData}) => {
     const handleSoftDelete = () => {
+        setTechStackData([]);
         setLoader(true);
-        setServiceData([]);
-        update(reference(db, 'portfolio/services/' + currentDelItem.serviceKey), {
+        update(reference(db, 'portfolio/tech_stacks/' + currentDelItem.tech_stackKey), {
             deleted : true
-        }).catch(() => {
+        }).catch((error) => {
+            console.log(error);
             setLoader(false);
             toast.error("Unable to delete, try again later 😒");
         }).then(() => {
-            setDelPopup(!delPopup);
+            toast.success("tech_stack deleted 😎");
             setLoader(false);
-            toast.success("Service deleted 😎");
-            
+            setDelPopup(!delPopup);
         })
     }
 
     const handlePermanentDelete = () => {
-        setLoader(true);
-        setServiceData([]);
-        let useRefer = reference(db, 'portfolio/services/' + currentDelItem.serviceKey)
-        remove(useRefer).catch(() => {
+        setTechStackData([]);
+        let useRefer = reference(db, 'portfolio/tech_stacks/' + currentDelItem.tech_stackKey)
+        remove(useRefer).catch((error) => {
+            console.log(error);
+            toast.error("unable to make permanent delete!");
             setLoader(false);
             setDelPopup(!delPopup);
-            toast.error("unable to make permanent delete!");
 
         }).then(() => {
-            setDelPopup(!delPopup);
             setLoader(false);
-            toast.success("Service deleted 😎");
+            toast.success("tech_stack deleted 😎");
+            setDelPopup(!delPopup);
         })
     }
 
@@ -44,12 +44,12 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setSer
                 <div onClick={() => setDelPopup(!delPopup)} className="cross">
                     <i className="fa fa-times" aria-hidden="true"></i>
                 </div>
-                <h3>Delete Service?</h3>
+                <h3>Delete tech_stack?</h3>
                 <p>Are you sure you want to delete</p>
                 
                 <div className="warn_info">
                     <h4><i className="fa fa-warning"></i> Warning</h4>
-                    <p>By deleting service ({currentDelItem.serviceTitle}) you can't undo this action.</p>
+                    <p>By deleting tech_stack ({currentDelItem.tech_stackTitle}) you can't undo this action.</p>
                 </div>
                 
                 <div className="clearfix">
@@ -61,4 +61,4 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setSer
     )
 }
 
-export default DeleteService;
+export default DeleteTechStack;

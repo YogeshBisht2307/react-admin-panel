@@ -27,6 +27,13 @@ git switch <branch_name>
 # git upstream command to add new branch to remote origin
 git push --set-upstream origin user_panel
 
+# deleting branch locally
+ git branch -d task/services_configuration
 
+ # deleting branch remote
+  git push origin --delete task/services_configuration
 
+# merging branches
+from current branch to another branch 
+git merge <branch_name>
 

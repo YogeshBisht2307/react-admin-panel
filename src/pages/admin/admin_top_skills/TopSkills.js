@@ -4,38 +4,38 @@ import { ref as reference, push, onValue } from "firebase/database";
 import { db } from '../../../firebase.config';
 
 import { toast } from 'react-toastify';
-import DisplayServices from './DisplayServices';
+import DisplayTopSkills from './DisplayTopSkills';
 
 import ScreenLoader from '../../../components/utility/Loader';
-import './services.css';
+import './topskills.css';
 
-const AdminServices = () => {
+const AdminTopSkills = () => {
     const initialState = {
-        'serviceTitle': "",
-        'serviceDetail': "",
-        'serviceImageFont': "",
-    }
+        'top_skillTitle': "",
+        'top_skillPoint': "",
+        'top_skillBgColor': "",
+    };
     const [addRowCollapsible, setAddRowCollapsible] = useState(false);
     const [loader, setLoader] = useState(false);
-    const [serviceDataItem, setServiceDataItem] = useState(initialState);
+    const [topSkillDataItem, setTopSkillDataItem] = useState(initialState);
 
-    const [serviceData, setServiceData] = useState([]);
+    const [topSkillsData, setTopSkillsData] = useState([]);
     
     const fetchData = async() => {
         setLoader(true);
         
-        const serviceRef = reference(db, 'portfolio/services');
-        onValue(serviceRef, (snapshot) => {
+        const top_skillsRef = reference(db, 'portfolio/top_skills');
+        onValue(top_skillsRef, (snapshot) => {
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
                 if (data.deleted === false){
-                    setServiceData(arr => 
+                    setTopSkillsData(arr => 
                         [...arr, {
-                            serviceKey: childSnapshot.key,
-                            serviceId : data.serviceId,
-                            serviceTitle: data.serviceTitle,
-                            serviceDetail: data.serviceDetail,
-                            serviceImageFont: data.serviceImageFont,
+                            top_skillKey: childSnapshot.key,
+                            top_skillId : data.top_skillsId,
+                            top_skillTitle: data.top_skillTitle,
+                            top_skillPoint: data.top_skillPoint,
+                            top_skillBgColor: data.top_skillBgColor
                         }]
                     )
                 }
@@ -45,40 +45,53 @@ const AdminServices = () => {
     }
 
     const validateData = (dataItem) => {
-        if (dataItem.serviceTitle.trim() === ""){
-            toast.error("Invalid Service Title !");
+        if (dataItem.top_skillTitle.trim() === ""){
+            toast.error("Invalid top_skills Title !");
             return false;
         }
-        if (dataItem.serviceDetail.trim() === ""){
-            toast.error("Invalid Service Detail !");
+        if (dataItem.top_skillPoint.trim() === ""){
+            toast.error("Invalid top_skills Point !");
             return false;
         }
+        if (isNaN(dataItem.top_skillPoint) === true){
+            toast.error("Top Skill Point is Not a Number !");
+            return false;
+        }
+        if (Number(dataItem.top_skillPoint) > 10 ){
+            toast.error("Top Skill Point Can't be greater then 10 !");
+            return false;
+        }
+        if (dataItem.top_skillBgColor.trim() === ""){
+            toast.error("Inavalid Background color !")
+            return false
+        }
+
         return true;
     }
 
-    const submitData = async(e) => {
+    const submitData = (e) => {
         e.preventDefault();
-        if (validateData(serviceDataItem) === false){
+        if (validateData(topSkillDataItem) === false){
             return;
         }
         setLoader(true);
-        setServiceData([]);
-        // adding service data to firebase server
-        push(reference(db, 'portfolio/services/',), {
-            serviceId : `service-${Date.now()}`,
-            serviceTitle: serviceDataItem.serviceTitle,
-            serviceDetail: serviceDataItem.serviceDetail,
-            serviceImageFont: serviceDataItem.serviceImageFont,
+        setTopSkillsData([]);
+        // adding top_skills data to firebase server
+        push(reference(db, 'portfolio/top_skills/',), {
+            top_skillId : `top_skill-${Date.now()}`,
+            top_skillTitle: topSkillDataItem.top_skillTitle,
+            top_skillPoint: topSkillDataItem.top_skillPoint,
+            top_skillBgColor: topSkillDataItem.top_skillBgColor,
             deleted : false,
         }).catch(() => {
             setLoader(false);
-            toast.error("Error occured during service data uploading!...");
+            toast.error("Error occured during top_skills data uploading!...");
         })
         .then(() =>{
             setAddRowCollapsible(!addRowCollapsible);
-            setServiceDataItem(initialState);
+            setTopSkillDataItem(initialState);
             setLoader(false);
-            toast.success("Hurray !!! Service added successfully !");
+            toast.success("Hurray !!! top_skills added successfully !");
         })
     }
 
@@ -91,19 +104,20 @@ const AdminServices = () => {
             <ScreenLoader/>
         )
     }
+
     return (
         <div className="container">
             <div className="main">
                 <div className="addElement">
                     <div className="addElementHeader">
-                        <p>Services List</p>
+                        <p>Top Skill List</p>
                         <button 
                             className="collapsible"
                             onClick={
                             () => setAddRowCollapsible(!addRowCollapsible)
                             } 
                         >
-                            Add Service
+                            Add Skills
                         </button>
                     </div>
                     <div className="content" 
@@ -115,10 +129,10 @@ const AdminServices = () => {
                         <div className="form_wrapper">
                             <div className="form_container">
                                 <div className="title_container">
-                                    <h2>Add New Service</h2>
+                                    <h2>Add New Skills</h2>
                                 </div>
                                 <div className="row">
-                                {/* Add services form starts here */}
+                                {/* Add top_skills form starts here */}
                                     <form onSubmit={submitData}>
                                         <div className="form-row">
                                             <div className="input_field"> 
@@ -126,11 +140,11 @@ const AdminServices = () => {
                                                 <input type="text" 
                                                     name="title" 
                                                     placeholder="Title" 
-                                                    value={serviceDataItem.serviceTitle} 
+                                                    value={topSkillDataItem.top_skillTitle} 
                                                     onChange={
-                                                        (e)=> setServiceDataItem({
-                                                            ...serviceDataItem,
-                                                            serviceTitle: e.target.value
+                                                        (e)=> setTopSkillDataItem({
+                                                            ...topSkillDataItem,
+                                                            top_skillTitle: e.target.value
                                                         })
                                                     }
                                                 />
@@ -139,49 +153,49 @@ const AdminServices = () => {
                                                 <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
                                                 <input type="text" 
                                                     name="image" 
-                                                    placeholder="Image font url" 
-                                                    value={serviceDataItem.serviceImageFont} 
+                                                    placeholder="Skill Point" 
+                                                    value={topSkillDataItem.top_skillPoint} 
                                                     onChange={
-                                                        (e) => setServiceDataItem({
-                                                            ...serviceDataItem,
-                                                            serviceImageFont: e.target.value
+                                                        (e) => setTopSkillDataItem({
+                                                            ...topSkillDataItem,
+                                                            top_skillPoint: e.target.value
                                                         })
                                                     }
                                                 />
                                             </div>
                                         </div>
                                         <div className="form-row">
-                                            <div className="input_field textarea_field"> 
-                                                <span><i aria-hidden="true" className="fa fa-book"></i></span>
-                                                <textarea rows="3"
-                                                    name="detail"
-                                                    placeholder="Service Detail" 
-                                                    value={serviceDataItem.serviceDetail} 
+                                            <div className="input_field"> 
+                                                <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                                <input type="text" 
+                                                    name="bg_color" 
+                                                    placeholder="Background Color (RGB format)" 
+                                                    value={topSkillDataItem.top_skillBgColor} 
                                                     onChange={
-                                                        (e) => setServiceDataItem({
-                                                            ...serviceDataItem,
-                                                            serviceDetail: e.target.value
+                                                        (e)=> setTopSkillDataItem({
+                                                            ...topSkillDataItem,
+                                                            top_skillBgColor: e.target.value
                                                         })
                                                     }
                                                 />
                                             </div>
                                         </div>
                                         <div className="form-row">
-                                            <input className="button" type="submit" value="Add Service" />
+                                            <input className="button" type="submit" value="Add top_skills" />
                                         </div>
                                     </form>
-                                    {/* Add services form ends here */}
+                                    {/* Add top_skills form ends here */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <DisplayServices
+                <DisplayTopSkills
                     loader ={loader}
                     setLoader = {setLoader}
-                    serviceData={serviceData} 
-                    setServiceData={setServiceData} 
+                    topSkillsData={topSkillsData} 
+                    setTopSkillsData={setTopSkillsData} 
                 />
                  
             </div>
@@ -189,4 +203,4 @@ const AdminServices = () => {
     )
 }
 
-export default AdminServices;
+export default AdminTopSkills;

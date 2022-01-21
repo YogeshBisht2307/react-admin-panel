@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import ActivityChart from './ActivityChart';
 import './dashboard.css';
 
 const DashboardData = [
@@ -20,29 +20,12 @@ const DashboardData = [
         icon: "fa fa-newspaper-o",
         header: "Projects",
         count: 300,
-    },
-    {
-        id: 4,
-        icon: "fa fa-graduation-cap",
-        header: "Top Skills",
-        count: 300,
-    },
-    {
-        id: 5,
-        icon: "fa fa-database",
-        header: "Tech Stack",
-        count: 300,
-    },
-    {
-        id: 6,
-        icon: "fa fa-cog",
-        header: "Settings",
-        count: 300,
     }
 ]
 
 const AdminDashboard = () => {
     return (
+        <>
         <div className="container">
             <div className="dashboard-home-page">
                 <div className="dashboard-header">
@@ -69,7 +52,11 @@ const AdminDashboard = () => {
                     })}
                 </div>
             </div>
+            <div className="chart-data">
+                <ActivityChart/>
+            </div>
         </div>
+        </>
     )
 }
 

@@ -5,11 +5,11 @@ import { db } from '../../../firebase.config';
 
 import { toast } from 'react-toastify';
 
-const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setServiceData}) => {
+const DeleteTopSkill = ({ delPopup, setDelPopup, currentDelItem, setLoader, setTopSkillsData }) => {
     const handleSoftDelete = () => {
         setLoader(true);
-        setServiceData([]);
-        update(reference(db, 'portfolio/services/' + currentDelItem.serviceKey), {
+        setTopSkillsData([]);
+        update(reference(db, 'portfolio/top_skills/' + currentDelItem.top_skillKey), {
             deleted : true
         }).catch(() => {
             setLoader(false);
@@ -17,15 +17,15 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setSer
         }).then(() => {
             setDelPopup(!delPopup);
             setLoader(false);
-            toast.success("Service deleted 😎");
+            toast.success("Skill deleted 😎");
             
         })
     }
 
     const handlePermanentDelete = () => {
         setLoader(true);
-        setServiceData([]);
-        let useRefer = reference(db, 'portfolio/services/' + currentDelItem.serviceKey)
+        setTopSkillsData([]);
+        let useRefer = reference(db, 'portfolio/top_skills/' + currentDelItem.top_skillKey);
         remove(useRefer).catch(() => {
             setLoader(false);
             setDelPopup(!delPopup);
@@ -34,7 +34,7 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setSer
         }).then(() => {
             setDelPopup(!delPopup);
             setLoader(false);
-            toast.success("Service deleted 😎");
+            toast.success("Top Skill deleted 😎");
         })
     }
 
@@ -44,21 +44,21 @@ const DeleteService = ({delPopup, setDelPopup, currentDelItem, setLoader, setSer
                 <div onClick={() => setDelPopup(!delPopup)} className="cross">
                     <i className="fa fa-times" aria-hidden="true"></i>
                 </div>
-                <h3>Delete Service?</h3>
+                <h3>Delete Skill?</h3>
                 <p>Are you sure you want to delete</p>
                 
                 <div className="warn_info">
                     <h4><i className="fa fa-warning"></i> Warning</h4>
-                    <p>By deleting service ({currentDelItem.serviceTitle}) you can't undo this action.</p>
+                    <p>By deleting Skill ({currentDelItem.top_skillTitle}) you can't undo this action.</p>
                 </div>
                 
                 <div className="clearfix">
-                    <button className="btn1" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
-                    <button className="btn2" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete </button>
+                    <button className="btn" id="softdelete"  onClick={handleSoftDelete}>Soft Delete</button>
+                    <button className="btn" id="permanent_delete" onClick={handlePermanentDelete} >Permanent Delete</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default DeleteService;
+export default DeleteTopSkill;

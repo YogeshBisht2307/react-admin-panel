@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 import {signInWithEmailAndPassword ,sendPasswordResetEmail} from 'firebase/auth';
 import {app, authentication} from '../../../firebase.config';
 
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import { setCookie,getCookie } from '../../../components/utility/cookies';
 
 import ScreenLoader from '../../../components/utility/Loader';
 
 import './login.css';
 
 const AdminLogin = () => {
+    let authToken = getCookie('auth_token')
+    authToken && navigate("/admin/dashboard");
+
     const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -23,14 +27,16 @@ const AdminLogin = () => {
 
         signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
-            sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+            setCookie('auth_token', response._tokenResponse.refreshToken);
+            setCookie('user_name', response.user.displayName);
+            setCookie('photo_url', response.user.photoURL);
             setLoader(false);
             navigate("/admin/dashboard");
             //   navigate(state?.path || "/dashboard");
             toast.success("Welcome back! 😎");   
         })
         .catch((error) => {
-            console.log(error.code)
+            console.log(error.code);
             setLoader(false);
             if (error.code === 'auth/wrong-password') {
                 toast.error('Please check the Password! 😏');
@@ -45,26 +51,26 @@ const AdminLogin = () => {
     }
 
     const resetPassoword = (event) => {
-    event.preventDefault();
-    setLoader(true);
-    sendPasswordResetEmail(authentication,email)
-    .then(() => {
-        setLoader(false);
-        toast.success('Password Reset Email has send! 😊');
-    })
-    .catch((error) => {
-        setLoader(false);
-        console.log(error.code);
-        if(error.code === 'auth/missing-email'){
-            toast.error('Email is required! 😒');
-        }
-        if(error.code === 'auth/user-not-found'){
-            toast.error('Please check the Email! 😵‍💫');
-        }
-        if(error.code === 'auth/timeout'){
-            toast.error('Request timeout ! try again later');
-        }
-    })
+        event.preventDefault();
+        setLoader(true);
+        sendPasswordResetEmail(authentication,email)
+        .then(() => {
+            setLoader(false);
+            toast.success('Password Reset Email has send! 😊');
+        })
+        .catch((error) => {
+            setLoader(false);
+            console.log(error.code);
+            if(error.code === 'auth/missing-email'){
+                toast.error('Email is required! 😒');
+            }
+            if(error.code === 'auth/user-not-found'){
+                toast.error('Please check the Email! 😵‍💫');
+            }
+            if(error.code === 'auth/timeout'){
+                toast.error('Request timeout ! try again later');
+            }
+        })
     }
 
     if(loader){

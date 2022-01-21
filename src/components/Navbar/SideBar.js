@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import AdminImage from '../images/admin.JPG';
+import { getCookie } from '../utility/cookies';
 
 import './navbar.css';
 
 const SideNavbar = () => {
+    const [showDropdown, setShowDropdown] = useState(false);
+    let user_name=getCookie('user_name');
+    let photoURL=getCookie('photo_url');
+
+    const showDropdownHandle = ()=>{
+        setShowDropdown(!showDropdown);
+    }
     return (
         <div className="sidebar">
             <div className="profile">
-                <img src={AdminImage} style={{border:"2px solid white"}} alt="profile_picture"/>
-                <h3>Yogesh Bisht</h3>
+                <img src={photoURL !== "" ? photoURL : AdminImage} style={{border:"2px solid white"}} alt="Yogesh Bisht"/>
+                <h3>{user_name !=="" ? user_name : "Unknown"}</h3>
                 <p>Full Stack Developer</p>
             </div>
             <ul>
@@ -26,7 +34,7 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/admin/project'>
+                    <Link to='/admin/projects'>
                         <span className="icon"><i className="fa fa-newspaper-o"></i></span>
                         <span className="item">Projects</span>
                     </Link>
@@ -38,22 +46,29 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/admin/techstack'>
+                    <Link to='/admin/techstacks'>
                         <span className="icon"><i className="fa fa-database"></i></span>
                         <span className="item">TechStack</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to='/admin/contacts'>
-                        <span className="icon"><i className="fa fa-database"></i></span>
-                        <span className="item">Contact List</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link to='/admin/settings'>
+                    <div className="nav-header" onClick={showDropdownHandle}>
                         <span className="icon"><i className="fa fa-cog"></i></span>
                         <span className="item">Settings</span>
-                    </Link>
+                        <span className="icon"><i className="fa fa-caret-down"></i></span>
+                    </div>
+                    <div className="nav-dropdown" style={{display: showDropdown ? 'block': 'None'}}>
+
+                        <Link to='/admin/updateProfile' onClick={showDropdownHandle}>
+                            <span className="icon"><i className="fa fa-user"></i></span>
+                            <span className="item">Update Profile</span>
+                        </Link>
+
+                        <Link to='/admin/updateHeroData' onClick={showDropdownHandle}>
+                            <span className="icon"><i className="fa fa-users"></i></span>
+                            <span className="item">Update Hero Data</span>
+                        </Link>
+                    </div>
                 </li>
             </ul>
         </div>

@@ -1,0 +1,9 @@
+.content-table .edit-content.project{
+  height: 60vh;
+}
+@media(max-width:768px){
+    .content-table .edit-content.project{
+    top:5%;
+    height:85vh;
+  }
+}
