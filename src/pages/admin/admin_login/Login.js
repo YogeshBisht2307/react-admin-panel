@@ -16,9 +16,6 @@ const AdminLogin = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [loader, setLoader] = useState(false);
-    
-    let authToken = getCookie('auth_token')
-    authToken && navigate("/admin/dashboard");
 
     let authToken = getCookie('auth_token')
     authToken && navigate("/admin/dashboard");
