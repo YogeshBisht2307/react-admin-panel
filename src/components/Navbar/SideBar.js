@@ -52,6 +52,12 @@ const SideNavbar = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link to='/admin/contact'>
+                        <span className="icon"><i className="fa fa-phone" aria-hidden="true"></i></span>
+                        <span className="item">Contact</span>
+                    </Link>
+                </li>
+                <li>
                     <div className="nav-header" onClick={showDropdownHandle}>
                         <span className="icon"><i className="fa fa-cog"></i></span>
                         <span className="item">Settings</span>

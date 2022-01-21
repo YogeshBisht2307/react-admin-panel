@@ -75,6 +75,16 @@ const App = () => {
             </RequireAuth>
           }
         />
+        <Route
+          path="admin/contact"
+          element={
+            <RequireAuth>
+              <DashboardLayout>
+                <AdminContact/>
+              </DashboardLayout>
+            </RequireAuth>
+          }
+        />
         <Route path="admin/login" element={<AdminLogin />} />
         <Route path="admin/" element={<AdminLogin />} />
 

@@ -2,7 +2,6 @@ import React, {useState} from "react";
 
 import SideNavbar from '../Navbar/SideBar';
 import HeaderBar from '../Navbar/HeaderBar';
-import { ToastContainer } from "react-toastify";
 
 const BodyWrapper = ({children}) => {
   return (

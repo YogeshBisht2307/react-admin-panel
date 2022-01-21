@@ -20,6 +20,9 @@ const AdminLogin = () => {
     let authToken = getCookie('auth_token')
     authToken && navigate("/admin/dashboard");
 
+    let authToken = getCookie('auth_token')
+    authToken && navigate("/admin/dashboard");
+
     const onLogin = (event) => {
 
         setLoader(true);
