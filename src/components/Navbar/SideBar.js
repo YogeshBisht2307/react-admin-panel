@@ -55,6 +55,7 @@ const SideNavbar = () => {
                     <div className="nav-header" onClick={showDropdownHandle}>
                         <span className="icon"><i className="fa fa-cog"></i></span>
                         <span className="item">Settings</span>
+                        <span className="icon"><i class="fa fa-caret-down"></i></span>
                     </div>
                     <div className="nav-dropdown" style={{display: showDropdown ? 'block': 'None'}}>
 

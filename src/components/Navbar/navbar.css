@@ -59,6 +59,10 @@
 	width: 30px;
 	display: inline-block;
 }
+.wrapper .sidebar ul li .nav-header span:nth-child(3){
+	position: absolute;
+	right: 10%;
+}
 
 .wrapper .sidebar ul li > a:hover, 
 .wrapper .sidebar ul li .nav-header:hover{
