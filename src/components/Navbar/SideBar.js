@@ -65,7 +65,7 @@ const SideNavbar = () => {
                     </div>
                     <div className="nav-dropdown" style={{display: showDropdown ? 'block': 'None'}}>
 
-                        <Link to='/admin/updateProfile' onClick={showDropdownHandle}>
+                        <Link to='/admin/settings/updateProfile' onClick={showDropdownHandle}>
                             <span className="icon"><i className="fa fa-user"></i></span>
                             <span className="item">Update Profile</span>
                         </Link>

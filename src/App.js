@@ -9,10 +9,12 @@ import AdminDashboard from "./pages/admin/admin_dashboard/Dashboard";
 import AdminServices from "./pages/admin/admin_services/Services";
 import AdminProjects from "./pages/admin/admin_projects/Projects";
 import AdminContact from "./pages/admin/admin_contact/Contact";
-import NoRoutePage from "./components/utility/404";
-import './pages/admin/admin.css';
 import TechStack from "./pages/admin/admin_tech_stack/TechStack";
 import AdminTopSkills from "./pages/admin/admin_top_skills/TopSkills";
+import UpdateAdminProfile from "./pages/admin/admin_settings/UpdateAdminProfile";
+import NoRoutePage from "./components/utility/404";
+
+import './pages/admin/admin.css';
 
 const Home = () => <h1>Home (Public) <Link to="admin/login">Admin</Link></h1>;
 
@@ -81,6 +83,16 @@ const App = () => {
             <RequireAuth>
               <DashboardLayout>
                 <AdminContact/>
+              </DashboardLayout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="admin/settings/updateProfile"
+          element={
+            <RequireAuth>
+              <DashboardLayout>
+                <UpdateAdminProfile/>
               </DashboardLayout>
             </RequireAuth>
           }
